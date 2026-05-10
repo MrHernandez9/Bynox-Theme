@@ -1,0 +1,319 @@
+<section class="bynox-section bynox-hero-product">
+  <div class="bynox-container bynox-hero-wrapper">
+    <div class="bynox-hero-content">
+      <div class="bynox-hero-badge">
+        {{ section.settings.badge_text }}
+      </div>
+
+      <h1>{{ section.settings.heading }}</h1>
+
+      <p class="bynox-hero-subtitle">
+        {{ section.settings.subtitle }}
+      </p>
+
+      <div class="bynox-hero-points">
+        {% for block in section.blocks %}
+          {% if block.type == 'benefit' %}
+            <div class="bynox-hero-point">
+              <span>{{ block.settings.icon }}</span>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="bynox-hero-actions">
+        {% if section.settings.primary_button_label != blank %}
+          <a href="{{ section.settings.primary_button_link }}" class="bynox-btn bynox-btn-primary">
+            {{ section.settings.primary_button_label }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_button_label != blank %}
+          <a href="{{ section.settings.secondary_button_link }}" class="bynox-btn bynox-btn-secondary">
+            {{ section.settings.secondary_button_label }}
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="bynox-hero-trust">
+        {{ section.settings.trust_text }}
+      </div>
+    </div>
+
+    <div class="bynox-hero-image-area">
+      <div class="bynox-hero-glow"></div>
+
+      {% if section.settings.product_image != blank %}
+        <img 
+  src="{{ section.settings.product_image | image_url: width: 900 }}" 
+  alt="{{ section.settings.heading | escape }}"
+  class="bynox-hero-image"
+  loading="lazy"
+  width="900"
+  height="900"
+>
+      {% else %}
+        <div class="bynox-hero-placeholder">
+          Imagen del corrector de postura
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .bynox-hero-product {
+    padding: 90px 0 80px !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  .bynox-hero-wrapper {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 60px !important;
+    align-items: center !important;
+  }
+
+  .bynox-hero-content h1 {
+    font-size: clamp(42px, 5vw, 82px) !important;
+    line-height: .95 !important;
+    letter-spacing: -2.5px !important;
+    margin: 18px 0 22px !important;
+    color: var(--bynox-white) !important;
+  }
+
+  .bynox-hero-badge {
+    display: inline-flex !important;
+    padding: 9px 16px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(0,212,255,.35) !important;
+    background: rgba(0,212,255,.08) !important;
+    color: var(--bynox-cyan) !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+  }
+
+  .bynox-hero-subtitle {
+    color: rgba(245,247,250,.78) !important;
+    font-size: 20px !important;
+    line-height: 1.7 !important;
+    max-width: 650px !important;
+    margin: 0 0 28px !important;
+  }
+
+  .bynox-hero-points {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    margin: 30px 0 !important;
+  }
+
+  .bynox-hero-point {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 14px !important;
+    border: 1px solid var(--bynox-border) !important;
+    background: rgba(255,255,255,.04) !important;
+    border-radius: 18px !important;
+  }
+
+  .bynox-hero-point span {
+    font-size: 22px !important;
+  }
+
+  .bynox-hero-point p {
+    margin: 0 !important;
+    color: var(--bynox-white) !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+  }
+
+  .bynox-hero-actions {
+    display: flex !important;
+    gap: 14px !important;
+    flex-wrap: wrap !important;
+    margin-top: 28px !important;
+  }
+
+  .bynox-hero-trust {
+    color: rgba(245,247,250,.68) !important;
+    font-size: 14px !important;
+    margin-top: 18px !important;
+  }
+
+  .bynox-hero-image-area {
+    position: relative !important;
+    min-height: 560px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 34px !important;
+    background: radial-gradient(circle at center, rgba(37,99,235,.22), rgba(255,255,255,.03) 55%, rgba(255,255,255,.02)) !important;
+    border: 1px solid var(--bynox-border) !important;
+  }
+
+  .bynox-hero-glow {
+    position: absolute !important;
+    width: 360px !important;
+    height: 360px !important;
+    border-radius: 50% !important;
+    background: rgba(0,212,255,.24) !important;
+    filter: blur(80px) !important;
+  }
+
+  .bynox-hero-image {
+    position: relative !important;
+    z-index: 2 !important;
+    max-width: 88% !important;
+    max-height: 520px !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 28px 50px rgba(0,0,0,.45)) !important;
+  }
+
+  .bynox-hero-placeholder {
+    position: relative !important;
+    z-index: 2 !important;
+    color: var(--bynox-gray) !important;
+    font-weight: 700 !important;
+  }
+
+  @media(max-width: 900px) {
+    .bynox-hero-wrapper {
+      grid-template-columns: 1fr !important;
+      gap: 36px !important;
+    }
+
+    .bynox-hero-product {
+      padding: 55px 0 60px !important;
+    }
+
+    .bynox-hero-points {
+      grid-template-columns: 1fr !important;
+    }
+
+    .bynox-hero-image-area {
+      min-height: 380px !important;
+    }
+
+    .bynox-hero-actions .bynox-btn {
+      width: 100% !important;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX Hero Producto",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Texto superior",
+      "default": "Corrector de postura premium"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título principal",
+      "default": "Mejora tu postura desde el primer día"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Diseñado para ayudarte a mantener una postura más recta, cómoda y segura durante tus actividades diarias."
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Imagen del producto"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Botón principal",
+      "default": "Comprar ahora"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Link botón principal"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Botón secundario",
+      "default": "Ver beneficios"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Link botón secundario"
+    },
+    {
+      "type": "text",
+      "id": "trust_text",
+      "label": "Texto de confianza",
+      "default": "Compra segura · Envío rápido · Garantía de satisfacción"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Beneficio",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Ícono",
+          "default": "✓"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Ayuda a reducir la mala postura"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX Hero Producto",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "✓",
+            "text": "Soporte cómodo y ajustable"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "✓",
+            "text": "Ideal para trabajo y estudio"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "✓",
+            "text": "Diseño ligero y transpirable"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "✓",
+            "text": "Mejora tu postura diaria"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
