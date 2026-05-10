@@ -1,0 +1,436 @@
+<section class="bynox-section bynox-showcase-section">
+  <div class="bynox-container">
+
+    <div class="bynox-showcase-grid">
+
+      <div class="bynox-showcase-images">
+
+        <div class="bynox-showcase-main-image">
+
+          {% if section.settings.main_image != blank %}
+            <img
+              src="{{ section.settings.main_image | image_url: width: 1200 }}"
+              alt="{{ section.settings.heading | escape }}"
+              loading="lazy"
+              width="1200"
+              height="1200"
+            >
+          {% else %}
+            <div class="bynox-showcase-placeholder">
+              Imagen principal
+            </div>
+          {% endif %}
+
+        </div>
+
+        <div class="bynox-showcase-small-grid">
+
+          {% for block in section.blocks %}
+            {% if block.type == 'image' %}
+
+              <div class="bynox-showcase-small-card">
+
+                {% if block.settings.image != blank %}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 600 }}"
+                    alt="{{ block.settings.title | escape }}"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                  >
+                {% else %}
+                  <div class="bynox-showcase-placeholder-small">
+                    Imagen
+                  </div>
+                {% endif %}
+
+              </div>
+
+            {% endif %}
+          {% endfor %}
+
+        </div>
+
+      </div>
+
+      <div class="bynox-showcase-content">
+
+        <span class="bynox-showcase-badge">
+          {{ section.settings.badge }}
+        </span>
+
+        <h2>{{ section.settings.heading }}</h2>
+
+        <p class="bynox-showcase-description">
+          {{ section.settings.description }}
+        </p>
+
+        <div class="bynox-showcase-features">
+
+          {% for block in section.blocks %}
+            {% if block.type == 'feature' %}
+
+              <div class="bynox-showcase-feature">
+
+                <div class="bynox-showcase-feature-icon">
+                  {{ block.settings.icon }}
+                </div>
+
+                <div>
+                  <h3>{{ block.settings.title }}</h3>
+
+                  <p>{{ block.settings.text }}</p>
+                </div>
+
+              </div>
+
+            {% endif %}
+          {% endfor %}
+
+        </div>
+
+        {% if section.settings.button_label != blank %}
+          <a
+            href="{{ section.settings.button_link }}"
+            class="bynox-btn bynox-btn-primary"
+          >
+            {{ section.settings.button_label }}
+          </a>
+        {% endif %}
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+.bynox-showcase-section {
+  padding: 120px 0 !important;
+}
+
+.bynox-showcase-grid {
+  display: grid !important;
+  grid-template-columns: 1.1fr .9fr !important;
+  gap: 70px !important;
+  align-items: center !important;
+}
+
+.bynox-showcase-images {
+  position: relative !important;
+}
+
+.bynox-showcase-main-image {
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 38px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.03)
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+
+  min-height: 680px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  margin-bottom: 24px !important;
+}
+
+.bynox-showcase-main-image::before {
+  content: '' !important;
+  position: absolute !important;
+  width: 420px !important;
+  height: 420px !important;
+  border-radius: 50% !important;
+
+  background: rgba(0,212,255,.16) !important;
+
+  filter: blur(90px) !important;
+}
+
+.bynox-showcase-main-image img {
+  position: relative !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  max-width: 85% !important;
+
+  transition: transform .45s ease !important;
+}
+
+.bynox-showcase-main-image:hover img {
+  transform: scale(1.04) !important;
+}
+
+.bynox-showcase-small-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3,1fr) !important;
+  gap: 18px !important;
+}
+
+.bynox-showcase-small-card {
+  position: relative !important;
+  overflow: hidden !important;
+
+  border-radius: 24px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.03)
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+
+  min-height: 190px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.bynox-showcase-small-card img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.bynox-showcase-placeholder,
+.bynox-showcase-placeholder-small {
+  color: var(--bynox-gray) !important;
+  font-weight: 700 !important;
+}
+
+.bynox-showcase-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 10px 18px !important;
+  border-radius: 999px !important;
+
+  border: 1px solid rgba(0,212,255,.22) !important;
+
+  background: rgba(0,212,255,.08) !important;
+
+  color: var(--bynox-cyan) !important;
+
+  font-weight: 700 !important;
+
+  margin-bottom: 24px !important;
+}
+
+.bynox-showcase-content h2 {
+  font-size: clamp(42px,4vw,72px) !important;
+  line-height: .98 !important;
+  margin-bottom: 28px !important;
+  color: var(--bynox-white) !important;
+}
+
+.bynox-showcase-description {
+  color: rgba(245,247,250,.74) !important;
+  font-size: 20px !important;
+  line-height: 1.8 !important;
+  margin-bottom: 40px !important;
+}
+
+.bynox-showcase-features {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 22px !important;
+  margin-bottom: 42px !important;
+}
+
+.bynox-showcase-feature {
+  display: flex !important;
+  gap: 18px !important;
+  align-items: flex-start !important;
+}
+
+.bynox-showcase-feature-icon {
+  width: 58px !important;
+  height: 58px !important;
+
+  border-radius: 18px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  font-size: 26px !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(37,99,235,.22),
+      rgba(0,212,255,.18)
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+
+  flex-shrink: 0 !important;
+}
+
+.bynox-showcase-feature h3 {
+  margin: 0 0 8px !important;
+  color: var(--bynox-white) !important;
+  font-size: 22px !important;
+}
+
+.bynox-showcase-feature p {
+  margin: 0 !important;
+  color: rgba(245,247,250,.72) !important;
+  line-height: 1.7 !important;
+}
+
+@media(max-width: 1100px) {
+
+  .bynox-showcase-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+}
+
+@media(max-width: 768px) {
+
+  .bynox-showcase-section {
+    padding: 80px 0 !important;
+  }
+
+  .bynox-showcase-main-image {
+    min-height: 420px !important;
+  }
+
+  .bynox-showcase-small-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .bynox-showcase-content h2 {
+    font-size: 42px !important;
+  }
+
+}
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX Product Showcase",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "Tecnología y comodidad"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Diseñado para adaptarse a tu rutina diaria"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descripción",
+      "default": "Nuestro corrector de postura está diseñado para ofrecer soporte cómodo, elegante y funcional durante tus actividades diarias."
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Imagen principal"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto botón",
+      "default": "Comprar ahora"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link botón"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Ícono",
+          "default": "✓"
+        },
+        {
+          "type": "text",
+          "id": "title",
+         "label": "Título"
+         },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Imagen secundaria",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX Product Showcase",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "🧍",
+            "title": "Mejora tu postura",
+            "text": "Ayuda a mantener una posición más cómoda y alineada."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "💨",
+            "title": "Diseño transpirable",
+            "text": "Material cómodo para usar durante horas."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "⚡",
+            "title": "Uso diario",
+            "text": "Perfecto para oficina, estudio y trabajo."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
