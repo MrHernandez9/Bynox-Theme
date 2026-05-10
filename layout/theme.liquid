@@ -6,7 +6,7 @@
   lang="{{ request.locale.iso_code }}"
 >
 {{ 'bynox-base.css' | asset_url | stylesheet_tag }}
-
+{{ 'bynox-theme.css' | asset_url | stylesheet_tag }}
   <head>
     {%- if settings.favicon != blank -%}
       <link
