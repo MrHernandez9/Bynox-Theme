@@ -206,12 +206,62 @@
         "heading": "Todo lo que necesitas saber",
         "subtitle": "Resolvemos las dudas más comunes antes de comprar tu corrector de postura BYNOX."
       }
+    },
+    "bynox_comparison_table_37bitg": {
+      "type": "bynox-comparison-table",
+      "blocks": {
+        "row_jMYJ6t": {
+          "type": "row",
+          "settings": {
+            "feature": "Diseño ajustable",
+            "bynox_value": "✓ Sí",
+            "generic_value": "Limitado"
+          }
+        },
+        "row_mFdW4C": {
+          "type": "row",
+          "settings": {
+            "feature": "Material transpirable",
+            "bynox_value": "✓ Sí",
+            "generic_value": "No siempre"
+          }
+        },
+        "row_CYbkQW": {
+          "type": "row",
+          "settings": {
+            "feature": "Uso diario cómodo",
+            "bynox_value": "✓ Optimizado",
+            "generic_value": "Puede molestar"
+          }
+        },
+        "row_DAJBVd": {
+          "type": "row",
+          "settings": {
+            "feature": "Estilo discreto",
+            "bynox_value": "✓ Minimalista",
+            "generic_value": "Voluminoso"
+          }
+        }
+      },
+      "block_order": [
+        "row_jMYJ6t",
+        "row_mFdW4C",
+        "row_CYbkQW",
+        "row_DAJBVd"
+      ],
+      "name": "BYNOX Comparison Table",
+      "settings": {
+        "badge": "Comparación",
+        "heading": "No todos los correctores son iguales",
+        "subtitle": "BYNOX está pensado para ofrecer una experiencia más cómoda, moderna y confiable."
+      }
     }
   },
   "order": [
     "bynox_hero_product_AUk79k",
     "bynox_benefits_grid_e9WdNf",
     "bynox_testimonials_HBhK7p",
-    "bynox_faq_MQ33QA"
+    "bynox_faq_MQ33QA",
+    "bynox_comparison_table_37bitg"
   ]
 }
