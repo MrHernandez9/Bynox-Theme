@@ -10,6 +10,27 @@
 {
   "type": "footer",
   "name": "Footer",
-  "sections": {},
-  "order": []
+  "sections": {
+    "bynox_footer_h7bb7a": {
+      "type": "bynox-footer",
+      "name": "BYNOX Footer",
+      "settings": {
+        "brand_name": "BYNOX",
+        "description": "Soluciones modernas para una vida más cómoda. Compra inteligente. Vive mejor.",
+        "menu": "",
+        "menu_title": "Enlaces",
+        "newsletter_title": "Recibe ofertas exclusivas",
+        "newsletter_text": "Suscríbete para recibir novedades, descuentos y lanzamientos de BYNOX.",
+        "email_placeholder": "Tu correo electrónico",
+        "button_label": "Unirme",
+        "instagram": "",
+        "tiktok": "",
+        "whatsapp": "",
+        "bottom_text": "Compra segura · Envío rápido · Garantía"
+      }
+    }
+  },
+  "order": [
+    "bynox_footer_h7bb7a"
+  ]
 }
