@@ -255,6 +255,16 @@
         "heading": "No todos los correctores son iguales",
         "subtitle": "BYNOX está pensado para ofrecer una experiencia más cómoda, moderna y confiable."
       }
+    },
+    "bynox_sticky_cart_RfecMP": {
+      "type": "bynox-sticky-cart",
+      "name": "BYNOX Sticky Cart",
+      "settings": {
+        "title": "Corrector de postura BYNOX",
+        "price": "$39.99",
+        "button_label": "Comprar ahora",
+        "button_link": ""
+      }
     }
   },
   "order": [
@@ -262,6 +272,7 @@
     "bynox_benefits_grid_e9WdNf",
     "bynox_testimonials_HBhK7p",
     "bynox_faq_MQ33QA",
-    "bynox_comparison_table_37bitg"
+    "bynox_comparison_table_37bitg",
+    "bynox_sticky_cart_RfecMP"
   ]
 }
