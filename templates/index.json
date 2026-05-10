@@ -210,12 +210,58 @@
         "heading": "Clientes que ya sienten la diferencia",
         "subtitle": "Personas que usan BYNOX en su rutina diaria para sentirse más cómodas, seguras y alineadas."
       }
+    },
+    "bynox_faq_MQ33QA": {
+      "type": "bynox-faq",
+      "blocks": {
+        "faq_MQ9JcB": {
+          "type": "faq",
+          "settings": {
+            "question": "¿Puedo usarlo todos los días?",
+            "answer": "Sí. Está diseñado para uso diario moderado. Recomendamos comenzar por periodos cortos e ir aumentando según tu comodidad."
+          }
+        },
+        "faq_kctjPH": {
+          "type": "faq",
+          "settings": {
+            "question": "¿Sirve para trabajar sentado?",
+            "answer": "Sí. Es ideal para oficina, estudio, computadora y actividades donde pasas mucho tiempo sentado."
+          }
+        },
+        "faq_E9FMJL": {
+          "type": "faq",
+          "settings": {
+            "question": "¿Es ajustable?",
+            "answer": "Sí. Cuenta con correas ajustables para adaptarse mejor a diferentes tipos de cuerpo."
+          }
+        },
+        "faq_FmaFAw": {
+          "type": "faq",
+          "settings": {
+            "question": "¿Corrige la postura de inmediato?",
+            "answer": "Ayuda a recordarte mantener una postura más alineada. Los resultados dependen del uso constante y de tus hábitos diarios."
+          }
+        }
+      },
+      "block_order": [
+        "faq_MQ9JcB",
+        "faq_kctjPH",
+        "faq_E9FMJL",
+        "faq_FmaFAw"
+      ],
+      "name": "BYNOX FAQ",
+      "settings": {
+        "badge": "Preguntas frecuentes",
+        "heading": "Todo lo que necesitas saber",
+        "subtitle": "Resolvemos las dudas más comunes antes de comprar tu corrector de postura BYNOX."
+      }
     }
   },
   "order": [
     "bynox_hero_product_AUk79k",
     "bynox_benefits_grid_e9WdNf",
     "bynox_benefits_grid_nnzi7N",
-    "bynox_testimonials_HBhK7p"
+    "bynox_testimonials_HBhK7p",
+    "bynox_faq_MQ33QA"
   ]
 }
