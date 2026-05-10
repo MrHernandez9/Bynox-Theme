@@ -12,6 +12,13 @@
     "bynox_hero_product_AUk79k": {
       "type": "bynox-hero-product",
       "blocks": {
+        "benefit_pHmkfN": {
+          "type": "benefit",
+          "settings": {
+            "icon": "✓",
+            "text": "Ayuda a reducir la mala postura"
+          }
+        },
         "benefit_aNydw4": {
           "type": "benefit",
           "settings": {
@@ -42,6 +49,7 @@
         }
       },
       "block_order": [
+        "benefit_pHmkfN",
         "benefit_aNydw4",
         "benefit_n7NP6e",
         "benefit_9wRdVX",
