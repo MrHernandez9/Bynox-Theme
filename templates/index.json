@@ -116,55 +116,6 @@
         "subtitle": "Nuestro corrector de postura combina comodidad, soporte y diseño moderno para ayudarte a sentirte mejor cada día."
       }
     },
-    "bynox_benefits_grid_nnzi7N": {
-      "type": "bynox-benefits-grid",
-      "blocks": {
-        "benefit_NVbrAB": {
-          "type": "benefit",
-          "settings": {
-            "icon": "🧍",
-            "title": "Postura Correcta",
-            "description": "Ayuda a mantener tu espalda alineada y cómoda."
-          }
-        },
-        "benefit_HFKG6A": {
-          "type": "benefit",
-          "settings": {
-            "icon": "💨",
-            "title": "Material Transpirable",
-            "description": "Diseñado para uso prolongado sin incomodidad."
-          }
-        },
-        "benefit_PBxLgU": {
-          "type": "benefit",
-          "settings": {
-            "icon": "⚡",
-            "title": "Uso Diario",
-            "description": "Perfecto para oficina, estudio o actividades diarias."
-          }
-        },
-        "benefit_hmmNG4": {
-          "type": "benefit",
-          "settings": {
-            "icon": "🛡️",
-            "title": "Soporte Cómodo",
-            "description": "Ajuste seguro y ergonómico para mayor comodidad."
-          }
-        }
-      },
-      "block_order": [
-        "benefit_NVbrAB",
-        "benefit_HFKG6A",
-        "benefit_PBxLgU",
-        "benefit_hmmNG4"
-      ],
-      "name": "BYNOX Benefits Grid",
-      "settings": {
-        "badge": "Beneficios",
-        "heading": "Diseñado para mejorar tu bienestar diario",
-        "subtitle": "Nuestro corrector de postura combina comodidad, soporte y diseño moderno para ayudarte a sentirte mejor cada día."
-      }
-    },
     "bynox_testimonials_HBhK7p": {
       "type": "bynox-testimonials",
       "blocks": {
@@ -260,7 +211,6 @@
   "order": [
     "bynox_hero_product_AUk79k",
     "bynox_benefits_grid_e9WdNf",
-    "bynox_benefits_grid_nnzi7N",
     "bynox_testimonials_HBhK7p",
     "bynox_faq_MQ33QA"
   ]
