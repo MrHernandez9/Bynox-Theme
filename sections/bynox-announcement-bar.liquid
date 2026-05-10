@@ -1,0 +1,82 @@
+<section class="bynox-announcement">
+  <div class="bynox-announcement-track">
+    <span>{{ section.settings.text_1 }}</span>
+    <span>{{ section.settings.text_2 }}</span>
+    <span>{{ section.settings.text_3 }}</span>
+    <span>{{ section.settings.text_1 }}</span>
+    <span>{{ section.settings.text_2 }}</span>
+    <span>{{ section.settings.text_3 }}</span>
+  </div>
+</section>
+
+<style>
+.bynox-announcement {
+  width: 100% !important;
+  overflow: hidden !important;
+  background: linear-gradient(90deg, #2563EB, #00D4FF) !important;
+  color: #fff !important;
+  padding: 10px 0 !important;
+}
+
+.bynox-announcement-track {
+  display: flex !important;
+  gap: 46px !important;
+  white-space: nowrap !important;
+  animation: bynox-marquee 22s linear infinite !important;
+  font-weight: 800 !important;
+  font-size: 14px !important;
+  letter-spacing: .3px !important;
+}
+
+.bynox-announcement-track span {
+  flex-shrink: 0 !important;
+}
+
+@keyframes bynox-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media(max-width: 768px) {
+  .bynox-announcement-track {
+    font-size: 13px !important;
+    gap: 34px !important;
+    animation-duration: 18s !important;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX Announcement Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Texto 1",
+      "default": "Envío rápido disponible"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Texto 2",
+      "default": "Compra segura"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Texto 3",
+      "default": "Garantía de satisfacción"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX Announcement Bar"
+    }
+  ]
+}
+{% endschema %}
