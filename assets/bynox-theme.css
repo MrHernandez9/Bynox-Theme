@@ -1,0 +1,82 @@
+body,
+.color-background-1,
+.gradient {
+  background: #0B0B0F !important;
+  color: #F5F7FA !important;
+}
+
+body {
+  font-family: Inter, sans-serif !important;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: Sora, sans-serif !important;
+  letter-spacing: -1px !important;
+}
+
+.header-wrapper,
+.header,
+.shopify-section-header-sticky {
+  background: rgba(11,11,15,.75) !important;
+  backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(255,255,255,.06) !important;
+}
+
+.header__heading-link,
+.header__menu-item,
+.list-menu__item,
+.header__icon,
+.header__active-menu-item {
+  color: #F5F7FA !important;
+}
+
+.header__menu-item:hover {
+  color: #00D4FF !important;
+}
+
+.bynox-section {
+  background: #0B0B0F !important;
+}
+
+.bynox-hero-product {
+  min-height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.bynox-hero-content h1 {
+  background: linear-gradient(to right, #ffffff, #8edbff);
+  background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+-webkit-text-fill-color: transparent;
+}
+
+.bynox-btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 25px 55px rgba(37,99,235,.45) !important;
+}
+
+.bynox-hero-image-area {
+  overflow: hidden !important;
+}
+
+.bynox-hero-image {
+  transition: transform .4s ease !important;
+}
+
+.bynox-hero-image:hover {
+  transform: scale(1.03) !important;
+}
+
+@media(max-width: 768px) {
+
+  .header {
+    padding: 12px 18px !important;
+  }
+
+  .bynox-hero-content h1 {
+    font-size: 54px !important;
+  }
+
+}

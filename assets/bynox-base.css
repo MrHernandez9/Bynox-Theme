@@ -1,0 +1,50 @@
+:root {
+  --bynox-dark: #0B0B0F;
+  --bynox-blue: #2563EB;
+  --bynox-cyan: #00D4FF;
+  --bynox-white: #F5F7FA;
+  --bynox-gray: #6B7280;
+  --bynox-card: #12121A;
+  --bynox-border: rgba(255,255,255,.12);
+}
+
+.bynox-section {
+  background: var(--bynox-dark) !important;
+  color: var(--bynox-white) !important;
+  width: 100% !important;
+}
+
+.bynox-container {
+  max-width: 1600px !important;
+  margin: 0 auto !important;
+  padding: 0 32px !important;
+}
+
+.bynox-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px 28px !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  transition: .25s ease !important;
+}
+
+.bynox-btn-primary {
+  background: linear-gradient(135deg, var(--bynox-blue), var(--bynox-cyan)) !important;
+  color: #fff !important;
+  box-shadow: 0 18px 40px rgba(37,99,235,.35) !important;
+}
+
+.bynox-btn-secondary {
+  border: 1px solid var(--bynox-cyan) !important;
+  color: var(--bynox-white) !important;
+  background: transparent !important;
+}
+
+@media(max-width: 768px) {
+  .bynox-container {
+    padding: 0 18px !important;
+  }
+}
