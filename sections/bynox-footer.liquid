@@ -1,0 +1,261 @@
+<footer class="bynox-footer bynox-section">
+  <div class="bynox-container">
+    <div class="bynox-footer-grid">
+      
+      <div class="bynox-footer-brand">
+        <h2>{{ section.settings.brand_name }}</h2>
+        <p>{{ section.settings.description }}</p>
+
+        <div class="bynox-footer-socials">
+          {% if section.settings.instagram != blank %}
+            <a href="{{ section.settings.instagram }}">Instagram</a>
+          {% endif %}
+          {% if section.settings.tiktok != blank %}
+            <a href="{{ section.settings.tiktok }}">TikTok</a>
+          {% endif %}
+          {% if section.settings.whatsapp != blank %}
+            <a href="{{ section.settings.whatsapp }}">WhatsApp</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="bynox-footer-links">
+        <h3>{{ section.settings.menu_title }}</h3>
+        {% for link in section.settings.menu.links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+
+      <div class="bynox-footer-newsletter">
+        <h3>{{ section.settings.newsletter_title }}</h3>
+        <p>{{ section.settings.newsletter_text }}</p>
+
+        {% form 'customer', class: 'bynox-footer-form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input
+            type="email"
+            name="contact[email]"
+            placeholder="{{ section.settings.email_placeholder }}"
+            required
+          >
+          <button type="submit">{{ section.settings.button_label }}</button>
+        {% endform %}
+      </div>
+
+    </div>
+
+    <div class="bynox-footer-bottom">
+      <p>© {{ 'now' | date: '%Y' }} {{ section.settings.brand_name }}. Todos los derechos reservados.</p>
+      <p>{{ section.settings.bottom_text }}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+.bynox-footer {
+  padding: 90px 0 34px !important;
+  border-top: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.bynox-footer-grid {
+  display: grid !important;
+  grid-template-columns: 1.2fr .7fr 1fr !important;
+  gap: 60px !important;
+}
+
+.bynox-footer-brand h2 {
+  color: var(--bynox-white) !important;
+  font-size: 38px !important;
+  margin: 0 0 18px !important;
+  letter-spacing: -1.5px !important;
+}
+
+.bynox-footer-brand p,
+.bynox-footer-newsletter p {
+  color: rgba(245,247,250,.68) !important;
+  line-height: 1.8 !important;
+  font-size: 16px !important;
+}
+
+.bynox-footer-socials {
+  display: flex !important;
+  gap: 14px !important;
+  flex-wrap: wrap !important;
+  margin-top: 26px !important;
+}
+
+.bynox-footer-socials a {
+  color: var(--bynox-cyan) !important;
+  text-decoration: none !important;
+  font-weight: 800 !important;
+  padding: 10px 14px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(0,212,255,.22) !important;
+  background: rgba(0,212,255,.07) !important;
+}
+
+.bynox-footer-links h3,
+.bynox-footer-newsletter h3 {
+  color: var(--bynox-white) !important;
+  font-size: 20px !important;
+  margin: 0 0 22px !important;
+}
+
+.bynox-footer-links {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.bynox-footer-links a {
+  color: rgba(245,247,250,.68) !important;
+  text-decoration: none !important;
+  margin-bottom: 13px !important;
+  font-weight: 600 !important;
+}
+
+.bynox-footer-links a:hover {
+  color: var(--bynox-cyan) !important;
+}
+
+.bynox-footer-form {
+  display: flex !important;
+  gap: 10px !important;
+  margin-top: 22px !important;
+}
+
+.bynox-footer-form input {
+  flex: 1 !important;
+  min-width: 0 !important;
+  padding: 16px 18px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  background: rgba(255,255,255,.05) !important;
+  color: var(--bynox-white) !important;
+  outline: none !important;
+}
+
+.bynox-footer-form input::placeholder {
+  color: rgba(245,247,250,.45) !important;
+}
+
+.bynox-footer-form button {
+  padding: 16px 22px !important;
+  border-radius: 999px !important;
+  border: none !important;
+  cursor: pointer !important;
+  background: linear-gradient(135deg, var(--bynox-blue), var(--bynox-cyan)) !important;
+  color: #fff !important;
+  font-weight: 900 !important;
+}
+
+.bynox-footer-bottom {
+  margin-top: 70px !important;
+  padding-top: 28px !important;
+  border-top: 1px solid rgba(255,255,255,.08) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: 20px !important;
+  color: rgba(245,247,250,.48) !important;
+  font-size: 14px !important;
+}
+
+.bynox-footer-bottom p {
+  margin: 0 !important;
+}
+
+@media(max-width: 900px) {
+  .bynox-footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 42px !important;
+  }
+
+  .bynox-footer-form {
+    flex-direction: column !important;
+  }
+
+  .bynox-footer-bottom {
+    flex-direction: column !important;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Nombre marca",
+      "default": "BYNOX"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descripción",
+      "default": "Soluciones modernas para una vida más cómoda. Compra inteligente. Vive mejor."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menú footer"
+    },
+    {
+      "type": "text",
+      "id": "menu_title",
+      "label": "Título menú",
+      "default": "Enlaces"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Título newsletter",
+      "default": "Recibe ofertas exclusivas"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Texto newsletter",
+      "default": "Suscríbete para recibir novedades, descuentos y lanzamientos de BYNOX."
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Placeholder email",
+      "default": "Tu correo electrónico"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Botón newsletter",
+      "default": "Unirme"
+    },
+    {
+      "type": "url",
+      "id": "instagram",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "tiktok",
+      "label": "TikTok"
+    },
+    {
+      "type": "url",
+      "id": "whatsapp",
+      "label": "WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Texto inferior",
+      "default": "Compra segura · Envío rápido · Garantía"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX Footer"
+    }
+  ]
+}
+{% endschema %}
