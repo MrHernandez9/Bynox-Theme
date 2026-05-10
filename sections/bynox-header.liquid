@@ -1,0 +1,182 @@
+<header class="bynox-header-section">
+  <div class="bynox-container bynox-header-inner">
+    <a href="{{ routes.root_url }}" class="bynox-header-logo">
+      {% if section.settings.logo != blank %}
+        <img
+          src="{{ section.settings.logo | image_url: width: 240 }}"
+          alt="{{ shop.name | escape }}"
+          width="240"
+          height="80"
+          loading="lazy"
+        >
+      {% else %}
+        {{ section.settings.logo_text }}
+      {% endif %}
+    </a>
+
+    <nav class="bynox-header-nav">
+      {% for link in section.settings.menu.links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
+    </nav>
+
+    <div class="bynox-header-actions">
+      {% if section.settings.cta_label != blank %}
+        <a href="{{ section.settings.cta_link }}" class="bynox-header-cta">
+          {{ section.settings.cta_label }}
+        </a>
+      {% endif %}
+
+      <a href="{{ routes.cart_url }}" class="bynox-header-cart">
+        🛒
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+.bynox-header-section {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 998 !important;
+  width: 100% !important;
+  background: rgba(11,11,15,.78) !important;
+  backdrop-filter: blur(18px) !important;
+  border-bottom: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.bynox-header-inner {
+  min-height: 82px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 28px !important;
+}
+
+.bynox-header-logo {
+  color: var(--bynox-white) !important;
+  font-size: 26px !important;
+  font-weight: 900 !important;
+  text-decoration: none !important;
+  letter-spacing: -1px !important;
+}
+
+.bynox-header-logo img {
+  max-width: 160px !important;
+  height: auto !important;
+  display: block !important;
+}
+
+.bynox-header-nav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 34px !important;
+}
+
+.bynox-header-nav a {
+  color: rgba(245,247,250,.78) !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  transition: color .25s ease !important;
+}
+
+.bynox-header-nav a:hover {
+  color: var(--bynox-cyan) !important;
+}
+
+.bynox-header-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+}
+
+.bynox-header-cta {
+  padding: 12px 20px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, var(--bynox-blue), var(--bynox-cyan)) !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+  box-shadow: 0 16px 35px rgba(37,99,235,.28) !important;
+  transition: transform .25s ease, box-shadow .25s ease !important;
+}
+
+.bynox-header-cta:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 22px 46px rgba(37,99,235,.42) !important;
+}
+
+.bynox-header-cart {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  background: rgba(255,255,255,.06) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+}
+
+@media(max-width: 768px) {
+  .bynox-header-inner {
+    min-height: 72px !important;
+  }
+
+  .bynox-header-nav {
+    display: none !important;
+  }
+
+  .bynox-header-cta {
+    padding: 11px 16px !important;
+    font-size: 13px !important;
+  }
+
+  .bynox-header-logo {
+    font-size: 23px !important;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Texto del logo",
+      "default": "BYNOX"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menú"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texto botón",
+      "default": "Comprar ahora"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Link botón"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX Header"
+    }
+  ]
+}
+{% endschema %}
