@@ -1,0 +1,280 @@
+<section class="bynox-section bynox-testimonials-section">
+  <div class="bynox-container">
+
+    <div class="bynox-testimonials-heading">
+      <span>{{ section.settings.badge }}</span>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="bynox-testimonials-grid">
+      {% for block in section.blocks %}
+        <div class="bynox-testimonial-card" {{ block.shopify_attributes }}>
+          <div class="bynox-testimonial-stars">
+            {{ block.settings.stars }}
+          </div>
+
+          <p class="bynox-testimonial-text">
+            “{{ block.settings.review }}”
+          </p>
+
+          <div class="bynox-testimonial-user">
+            {% if block.settings.avatar != blank %}
+              <img
+                src="{{ block.settings.avatar | image_url: width: 120 }}"
+                alt="{{ block.settings.name | escape }}"
+                width="120"
+                height="120"
+                loading="lazy"
+              >
+            {% else %}
+              <div class="bynox-testimonial-avatar">
+                {{ block.settings.initials }}
+              </div>
+            {% endif %}
+
+            <div>
+              <h3>{{ block.settings.name }}</h3>
+              <span>{{ block.settings.label }}</span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+.bynox-testimonials-section {
+  padding: 120px 0 !important;
+  position: relative !important;
+}
+
+.bynox-testimonials-heading {
+  text-align: center !important;
+  max-width: 850px !important;
+  margin: 0 auto 70px !important;
+}
+
+.bynox-testimonials-heading span {
+  display: inline-flex !important;
+  padding: 10px 18px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(0,212,255,.22) !important;
+  background: rgba(0,212,255,.08) !important;
+  color: var(--bynox-cyan) !important;
+  font-weight: 700 !important;
+  margin-bottom: 24px !important;
+}
+
+.bynox-testimonials-heading h2 {
+  font-size: clamp(42px,4vw,68px) !important;
+  line-height: 1 !important;
+  margin-bottom: 24px !important;
+  color: var(--bynox-white) !important;
+}
+
+.bynox-testimonials-heading p {
+  color: rgba(245,247,250,.72) !important;
+  font-size: 20px !important;
+  line-height: 1.7 !important;
+}
+
+.bynox-testimonials-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 24px !important;
+}
+
+.bynox-testimonial-card {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 34px !important;
+  border-radius: 30px !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease !important;
+}
+
+.bynox-testimonial-card:hover {
+  transform: translateY(-10px) !important;
+  border-color: rgba(0,212,255,.24) !important;
+  box-shadow: 0 30px 60px rgba(0,0,0,.35), 0 0 40px rgba(0,212,255,.08) !important;
+}
+
+.bynox-testimonial-stars {
+  color: #FFD166 !important;
+  font-size: 20px !important;
+  margin-bottom: 22px !important;
+  letter-spacing: 2px !important;
+}
+
+.bynox-testimonial-text {
+  color: rgba(245,247,250,.82) !important;
+  font-size: 18px !important;
+  line-height: 1.8 !important;
+  margin: 0 0 34px !important;
+}
+
+.bynox-testimonial-user {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.bynox-testimonial-user img,
+.bynox-testimonial-avatar {
+  width: 54px !important;
+  height: 54px !important;
+  border-radius: 999px !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+}
+
+.bynox-testimonial-avatar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: linear-gradient(135deg, var(--bynox-blue), var(--bynox-cyan)) !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+}
+
+.bynox-testimonial-user h3 {
+  margin: 0 0 4px !important;
+  color: var(--bynox-white) !important;
+  font-size: 17px !important;
+}
+
+.bynox-testimonial-user span {
+  color: rgba(245,247,250,.58) !important;
+  font-size: 14px !important;
+}
+
+@media(max-width: 1100px) {
+  .bynox-testimonials-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media(max-width: 768px) {
+  .bynox-testimonials-section {
+    padding: 80px 0 !important;
+  }
+
+  .bynox-testimonials-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .bynox-testimonials-heading h2 {
+    font-size: 42px !important;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX Testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "Opiniones reales"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Clientes que ya sienten la diferencia"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Personas que usan BYNOX en su rutina diaria para sentirse más cómodas, seguras y alineadas."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonio",
+      "settings": [
+        {
+          "type": "text",
+          "id": "stars",
+          "label": "Estrellas",
+          "default": "★★★★★"
+        },
+        {
+          "type": "textarea",
+          "id": "review",
+          "label": "Opinión",
+          "default": "Lo uso mientras trabajo y me ayuda mucho a mantenerme más recto sin sentir incomodidad."
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Foto del cliente"
+        },
+        {
+          "type": "text",
+          "id": "initials",
+          "label": "Iniciales si no hay foto",
+          "default": "MG"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nombre",
+          "default": "Miguel G."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Etiqueta",
+          "default": "Cliente verificado"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "stars": "★★★★★",
+            "review": "Trabajo muchas horas sentado y este corrector me ayuda a mantener mejor postura durante el día.",
+            "initials": "AR",
+            "name": "Andrés R.",
+            "label": "Cliente verificado"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "stars": "★★★★★",
+            "review": "Me gustó porque es cómodo, ajustable y no se nota mucho debajo de la ropa.",
+            "initials": "LC",
+            "name": "Laura C.",
+            "label": "Compra confirmada"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "stars": "★★★★★",
+            "review": "Lo uso en la oficina y siento que me recuerda mantenerme derecho sin molestar.",
+            "initials": "JM",
+            "name": "José M.",
+            "label": "Cliente verificado"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
