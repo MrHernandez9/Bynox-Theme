@@ -13,6 +13,7 @@
   "sections": {
     "bynox_footer_h7bb7a": {
       "type": "bynox-footer",
+      "disabled": true,
       "name": "BYNOX Footer",
       "settings": {
         "brand_name": "BYNOX",
