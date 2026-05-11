@@ -158,50 +158,55 @@
         "button_link": ""
       }
     },
-    "bynox_testimonials_HBhK7p": {
-      "type": "bynox-testimonials",
+    "bynox_how_it_works_jLEBWA": {
+      "type": "bynox-how-it-works",
       "blocks": {
-        "testimonial_GWBxrC": {
-          "type": "testimonial",
+        "step_HqGhyr": {
+          "type": "step",
           "settings": {
-            "stars": "★★★★★",
-            "review": "Trabajo muchas horas sentado y este corrector me ayuda a mantener mejor postura durante el día.",
-            "initials": "AR",
-            "name": "Andrés R.",
-            "label": "Cliente verificado"
+            "icon": "🎯",
+            "title": "Ajusta",
+            "text": "Coloca el corrector y ajusta las correas hasta sentir soporte cómodo."
           }
         },
-        "testimonial_48LXpc": {
-          "type": "testimonial",
+        "step_TYBm9w": {
+          "type": "step",
           "settings": {
-            "stars": "★★★★★",
-            "review": "Me gustó porque es cómodo, ajustable y no se nota mucho debajo de la ropa.",
-            "initials": "LC",
-            "name": "Laura C.",
-            "label": "Compra confirmada"
+            "icon": "🧍",
+            "title": "Alinea",
+            "text": "El soporte te ayuda a recordar mantener una postura más recta."
           }
         },
-        "testimonial_n3Mad8": {
-          "type": "testimonial",
+        "step_wpY9N8": {
+          "type": "step",
           "settings": {
-            "stars": "★★★★★",
-            "review": "Lo uso en la oficina y siento que me recuerda mantenerme derecho sin molestar.",
-            "initials": "JM",
-            "name": "José M.",
-            "label": "Cliente verificado"
+            "icon": "⚡",
+            "title": "Continúa",
+            "text": "Úsalo en tu rutina diaria mientras trabajas, estudias o caminas."
           }
         }
       },
       "block_order": [
-        "testimonial_GWBxrC",
-        "testimonial_48LXpc",
-        "testimonial_n3Mad8"
+        "step_HqGhyr",
+        "step_TYBm9w",
+        "step_wpY9N8"
       ],
-      "name": "BYNOX Testimonials",
+      "name": "BYNOX How It Works",
       "settings": {
-        "badge": "Opiniones reales",
-        "heading": "Clientes que ya sienten la diferencia",
-        "subtitle": "Personas que usan BYNOX en su rutina diaria para sentirse más cómodas, seguras y alineadas."
+        "badge": "Cómo funciona",
+        "heading": "Úsalo fácil en tu rutina diaria",
+        "subtitle": "BYNOX está diseñado para acompañarte sin complicaciones mientras trabajas, estudias o haces tus actividades."
+      }
+    },
+    "bynox_results_section_VAfJGW": {
+      "type": "bynox-results-section",
+      "name": "BYNOX Results Section",
+      "settings": {
+        "badge": "Resultados",
+        "heading": "Siente la diferencia en tu postura",
+        "subtitle": "BYNOX está diseñado para ayudarte a mantener una postura más cómoda y alineada en tu rutina diaria.",
+        "before_label": "Antes",
+        "after_label": "Después"
       }
     },
     "bynox_comparison_table_37bitg": {
@@ -251,6 +256,52 @@
         "badge": "Comparación",
         "heading": "No todos los correctores son iguales",
         "subtitle": "BYNOX está pensado para ofrecer una experiencia más cómoda, moderna y confiable."
+      }
+    },
+    "bynox_testimonials_HBhK7p": {
+      "type": "bynox-testimonials",
+      "blocks": {
+        "testimonial_GWBxrC": {
+          "type": "testimonial",
+          "settings": {
+            "stars": "★★★★★",
+            "review": "Trabajo muchas horas sentado y este corrector me ayuda a mantener mejor postura durante el día.",
+            "initials": "AR",
+            "name": "Andrés R.",
+            "label": "Cliente verificado"
+          }
+        },
+        "testimonial_48LXpc": {
+          "type": "testimonial",
+          "settings": {
+            "stars": "★★★★★",
+            "review": "Me gustó porque es cómodo, ajustable y no se nota mucho debajo de la ropa.",
+            "initials": "LC",
+            "name": "Laura C.",
+            "label": "Compra confirmada"
+          }
+        },
+        "testimonial_n3Mad8": {
+          "type": "testimonial",
+          "settings": {
+            "stars": "★★★★★",
+            "review": "Lo uso en la oficina y siento que me recuerda mantenerme derecho sin molestar.",
+            "initials": "JM",
+            "name": "José M.",
+            "label": "Cliente verificado"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_GWBxrC",
+        "testimonial_48LXpc",
+        "testimonial_n3Mad8"
+      ],
+      "name": "BYNOX Testimonials",
+      "settings": {
+        "badge": "Opiniones reales",
+        "heading": "Clientes que ya sienten la diferencia",
+        "subtitle": "Personas que usan BYNOX en su rutina diaria para sentirse más cómodas, seguras y alineadas."
       }
     },
     "bynox_faq_MQ33QA": {
@@ -308,44 +359,15 @@
         "button_link": ""
       }
     },
-    "bynox_how_it_works_jLEBWA": {
-      "type": "bynox-how-it-works",
-      "blocks": {
-        "step_HqGhyr": {
-          "type": "step",
-          "settings": {
-            "icon": "🎯",
-            "title": "Ajusta",
-            "text": "Coloca el corrector y ajusta las correas hasta sentir soporte cómodo."
-          }
-        },
-        "step_TYBm9w": {
-          "type": "step",
-          "settings": {
-            "icon": "🧍",
-            "title": "Alinea",
-            "text": "El soporte te ayuda a recordar mantener una postura más recta."
-          }
-        },
-        "step_wpY9N8": {
-          "type": "step",
-          "settings": {
-            "icon": "⚡",
-            "title": "Continúa",
-            "text": "Úsalo en tu rutina diaria mientras trabajas, estudias o caminas."
-          }
-        }
-      },
-      "block_order": [
-        "step_HqGhyr",
-        "step_TYBm9w",
-        "step_wpY9N8"
-      ],
-      "name": "BYNOX How It Works",
+    "bynox_video_section_K8RY3J": {
+      "type": "bynox-video-section",
+      "name": "BYNOX Video Section",
       "settings": {
-        "badge": "Cómo funciona",
-        "heading": "Úsalo fácil en tu rutina diaria",
-        "subtitle": "BYNOX está diseñado para acompañarte sin complicaciones mientras trabajas, estudias o haces tus actividades."
+        "badge": "Míralo en acción",
+        "heading": "Comodidad y soporte en cada movimiento",
+        "subtitle": "Muestra el corrector de postura BYNOX en uso para transmitir confianza, comodidad y diseño.",
+        "button_label": "Comprar ahora",
+        "button_link": ""
       }
     }
   },
@@ -353,7 +375,9 @@
     "bynox_hero_product_AUk79k",
     "bynox_benefits_grid_e9WdNf",
     "bynox_product_showcase_NCf7iB",
+    "bynox_video_section_K8RY3J",
     "bynox_how_it_works_jLEBWA",
+    "bynox_results_section_VAfJGW",
     "bynox_comparison_table_37bitg",
     "bynox_testimonials_HBhK7p",
     "bynox_faq_MQ33QA",
