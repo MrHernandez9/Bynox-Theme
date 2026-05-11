@@ -1,0 +1,166 @@
+<section class="bynox-section bynox-newsletter-section">
+  <div class="bynox-container" data-bynox-reveal>
+    <div class="bynox-newsletter-card">
+      <div class="bynox-newsletter-content">
+        <span>{{ section.settings.badge }}</span>
+        <h2>{{ section.settings.heading }}</h2>
+        <p>{{ section.settings.subtitle }}</p>
+      </div>
+
+      {% form 'customer', class: 'bynox-newsletter-form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+
+        <input
+          type="email"
+          name="contact[email]"
+          placeholder="{{ section.settings.placeholder }}"
+          required
+        >
+
+        <button type="submit">
+          {{ section.settings.button_label }}
+        </button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+<style>
+.bynox-newsletter-section {
+  padding: 120px 0 !important;
+}
+
+.bynox-newsletter-card {
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 38px !important;
+  padding: 70px !important;
+  background:
+    radial-gradient(circle at top right, rgba(0,212,255,.18), transparent 38%),
+    linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03)) !important;
+  border: 1px solid rgba(255,255,255,.09) !important;
+  display: grid !important;
+  grid-template-columns: 1fr .9fr !important;
+  gap: 50px !important;
+  align-items: center !important;
+}
+
+.bynox-newsletter-content span {
+  display: inline-flex !important;
+  padding: 10px 18px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(0,212,255,.22) !important;
+  background: rgba(0,212,255,.08) !important;
+  color: var(--bynox-cyan) !important;
+  font-weight: 800 !important;
+  margin-bottom: 24px !important;
+}
+
+.bynox-newsletter-content h2 {
+  font-size: clamp(42px,4vw,68px) !important;
+  line-height: 1 !important;
+  color: var(--bynox-white) !important;
+  margin: 0 0 22px !important;
+}
+
+.bynox-newsletter-content p {
+  color: rgba(245,247,250,.72) !important;
+  font-size: 19px !important;
+  line-height: 1.8 !important;
+  margin: 0 !important;
+}
+
+.bynox-newsletter-form {
+  display: flex !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+.bynox-newsletter-form input {
+  flex: 1 !important;
+  min-width: 0 !important;
+  padding: 18px 22px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  background: rgba(11,11,15,.58) !important;
+  color: var(--bynox-white) !important;
+  outline: none !important;
+}
+
+.bynox-newsletter-form input::placeholder {
+  color: rgba(245,247,250,.45) !important;
+}
+
+.bynox-newsletter-form button {
+  padding: 18px 28px !important;
+  border-radius: 999px !important;
+  border: none !important;
+  cursor: pointer !important;
+  background: linear-gradient(135deg, var(--bynox-blue), var(--bynox-cyan)) !important;
+  color: #fff !important;
+  font-weight: 900 !important;
+  box-shadow: 0 18px 40px rgba(37,99,235,.3) !important;
+}
+
+@media(max-width: 900px) {
+  .bynox-newsletter-section {
+    padding: 80px 0 !important;
+  }
+
+  .bynox-newsletter-card {
+    grid-template-columns: 1fr !important;
+    padding: 38px 24px !important;
+  }
+
+  .bynox-newsletter-form {
+    flex-direction: column !important;
+  }
+
+  .bynox-newsletter-content h2 {
+    font-size: 42px !important;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "Únete a BYNOX"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Recibe ofertas y lanzamientos exclusivos"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Sé de los primeros en conocer nuevos productos, descuentos especiales y novedades de BYNOX."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder",
+      "default": "Tu correo electrónico"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Botón",
+      "default": "Suscribirme"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX Newsletter"
+    }
+  ]
+}
+{% endschema %}
