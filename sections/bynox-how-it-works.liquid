@@ -1,0 +1,215 @@
+<section class="bynox-section bynox-steps-section">
+  <div class="bynox-container">
+    <div class="bynox-steps-heading">
+      <span>{{ section.settings.badge }}</span>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="bynox-steps-grid">
+      {% for block in section.blocks %}
+        <div class="bynox-step-card" {{ block.shopify_attributes }}>
+          <div class="bynox-step-number">
+            {{ forloop.index }}
+          </div>
+          <div class="bynox-step-icon">
+            {{ block.settings.icon }}
+          </div>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+.bynox-steps-section {
+  padding: 120px 0 !important;
+}
+
+.bynox-steps-heading {
+  text-align: center !important;
+  max-width: 850px !important;
+  margin: 0 auto 70px !important;
+}
+
+.bynox-steps-heading span {
+  display: inline-flex !important;
+  padding: 10px 18px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(0,212,255,.22) !important;
+  background: rgba(0,212,255,.08) !important;
+  color: var(--bynox-cyan) !important;
+  font-weight: 700 !important;
+  margin-bottom: 24px !important;
+}
+
+.bynox-steps-heading h2 {
+  font-size: clamp(42px,4vw,68px) !important;
+  line-height: 1 !important;
+  color: var(--bynox-white) !important;
+  margin-bottom: 24px !important;
+}
+
+.bynox-steps-heading p {
+  color: rgba(245,247,250,.72) !important;
+  font-size: 20px !important;
+  line-height: 1.7 !important;
+}
+
+.bynox-steps-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+  gap: 24px !important;
+}
+
+.bynox-step-card {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 38px !important;
+  border-radius: 32px !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease !important;
+}
+
+.bynox-step-card:hover {
+  transform: translateY(-10px) !important;
+  border-color: rgba(0,212,255,.24) !important;
+  box-shadow: 0 30px 60px rgba(0,0,0,.35), 0 0 40px rgba(0,212,255,.08) !important;
+}
+
+.bynox-step-number {
+  position: absolute !important;
+  top: 24px !important;
+  right: 28px !important;
+  font-size: 62px !important;
+  font-weight: 900 !important;
+  color: rgba(245,247,250,.06) !important;
+  line-height: 1 !important;
+}
+
+.bynox-step-icon {
+  width: 74px !important;
+  height: 74px !important;
+  border-radius: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 34px !important;
+  background: linear-gradient(135deg, rgba(37,99,235,.22), rgba(0,212,255,.18)) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  margin-bottom: 28px !important;
+}
+
+.bynox-step-card h3 {
+  color: var(--bynox-white) !important;
+  font-size: 28px !important;
+  margin: 0 0 16px !important;
+}
+
+.bynox-step-card p {
+  color: rgba(245,247,250,.72) !important;
+  line-height: 1.8 !important;
+  font-size: 16px !important;
+  margin: 0 !important;
+}
+
+@media(max-width: 1000px) {
+  .bynox-steps-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .bynox-steps-section {
+    padding: 80px 0 !important;
+  }
+
+  .bynox-steps-heading h2 {
+    font-size: 42px !important;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX How It Works",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "Cómo funciona"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Úsalo fácil en tu rutina diaria"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "BYNOX está diseñado para acompañarte sin complicaciones mientras trabajas, estudias o haces tus actividades."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Paso",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Ícono",
+          "default": "✓"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Ajusta"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto",
+          "default": "Colócalo y ajusta las correas según tu comodidad."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX How It Works",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "icon": "🎯",
+            "title": "Ajusta",
+            "text": "Coloca el corrector y ajusta las correas hasta sentir soporte cómodo."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "icon": "🧍",
+            "title": "Alinea",
+            "text": "El soporte te ayuda a recordar mantener una postura más recta."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "icon": "⚡",
+            "title": "Continúa",
+            "text": "Úsalo en tu rutina diaria mientras trabajas, estudias o caminas."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
