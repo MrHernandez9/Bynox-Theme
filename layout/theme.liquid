@@ -7,6 +7,7 @@
 >
 {{ 'bynox-base.css' | asset_url | stylesheet_tag }}
 {{ 'bynox-theme.css' | asset_url | stylesheet_tag }}
+{{ 'bynox-animations.css' | asset_url | stylesheet_tag }}
   <head>
     {%- if settings.favicon != blank -%}
       <link
@@ -134,5 +135,6 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
+    <script src="{{ 'bynox-main.js' | asset_url }}" defer></script>
   </body>
 </html>
