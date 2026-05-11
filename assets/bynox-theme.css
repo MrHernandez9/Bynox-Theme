@@ -78,5 +78,40 @@ color: transparent;
   .bynox-hero-content h1 {
     font-size: 54px !important;
   }
+.bynox-header-logo,
+.bynox-header-logo:visited,
+.bynox-header-logo:hover,
+.bynox-header-nav a,
+.bynox-header-nav a:visited,
+.bynox-header-cta,
+.bynox-header-cart {
+  color: #F5F7FA !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
 
+.bynox-header-logo {
+  display: flex !important;
+  align-items: center !important;
+  .bynox-footer .bynox-container {
+  width: 100% !important;
+  max-width: 1600px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.bynox-footer-grid {
+  width: 100% !important;
+}
+.bynox-footer .bynox-container {
+  width: 100% !important;
+  max-width: 1600px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.bynox-footer-grid {
+  width: 100% !important;
+}
+}
 }
