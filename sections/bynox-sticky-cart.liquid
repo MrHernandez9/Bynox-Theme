@@ -1,174 +1,311 @@
-<section class="bynox-sticky-cart-wrapper">
+{% assign current_product = all_products[section.settings.product] %}
 
-  <div class="bynox-sticky-cart">
+{% if current_product != blank %}
 
-    <div class="bynox-sticky-cart-left">
+<div class="bynox-sticky-cart">
 
-      {% if section.settings.product_image != blank %}
-        <img
-          src="{{ section.settings.product_image | image_url: width: 200 }}"
-          alt="{{ section.settings.title | escape }}"
-          width="200"
-          height="200"
-          loading="lazy"
-        >
-      {% endif %}
+  <div class="bynox-sticky-left">
 
-      <div class="bynox-sticky-cart-info">
-        <h3>{{ section.settings.title }}</h3>
-
-        <div class="bynox-sticky-cart-price">
-          {{ section.settings.price }}
-        </div>
-      </div>
-
-    </div>
-
-    <div class="bynox-sticky-cart-right">
-
-      <a
-        href="{{ section.settings.button_link }}"
-        class="bynox-btn bynox-btn-primary"
+    {% if current_product.featured_image %}
+      <img
+        src="{{ current_product.featured_image | image_url: width: 180 }}"
+        alt="{{ current_product.title | escape }}"
+        width="180"
+        height="180"
+        loading="lazy"
       >
-        {{ section.settings.button_label }}
-      </a>
+    {% endif %}
 
+    <div class="bynox-sticky-info">
+      <h3>{{ current_product.title }}</h3>
+
+      <div class="bynox-sticky-price">
+        {{ current_product.price | money }}
+      </div>
     </div>
 
   </div>
 
-</section>
+  {% form 'product', current_product %}
+
+    <input
+      type="hidden"
+      name="id"
+      value="{{ current_product.selected_or_first_available_variant.id }}"
+    >
+
+    <div class="bynox-sticky-actions">
+
+      <div class="bynox-sticky-qty">
+
+        <button
+          type="button"
+          onclick="bynoxStickyDecreaseQty()"
+        >
+          −
+        </button>
+
+        <input
+          id="bynoxStickyQty"
+          type="number"
+          name="quantity"
+          value="1"
+          min="1"
+        >
+
+        <button
+          type="button"
+          onclick="bynoxStickyIncreaseQty()"
+        >
+          +
+        </button>
+
+      </div>
+
+      <button
+        type="submit"
+        class="bynox-sticky-button"
+      >
+        {{ section.settings.button_label }}
+      </button>
+
+    </div>
+
+  {% endform %}
+
+</div>
+
+{% endif %}
 
 <style>
-.bynox-sticky-cart-wrapper {
+.bynox-sticky-cart {
   position: fixed !important;
-  bottom: 20px !important;
-  left: 0 !important;
-  width: 100% !important;
+
+  left: 50% !important;
+  bottom: 24px !important;
+
+  transform: translateX(-50%) !important;
+
+  width: calc(100% - 40px) !important;
+  max-width: 1300px !important;
+
   z-index: 999 !important;
 
-  pointer-events: none !important;
-}
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
 
-.bynox-sticky-cart {
-  max-width: 1200px !important;
+  gap: 24px !important;
 
-  margin: 0 auto !important;
+  padding: 18px 24px !important;
 
-  padding: 16px 22px !important;
-
-  border-radius: 24px !important;
+  border-radius: 28px !important;
 
   background:
-    rgba(11,11,15,.82) !important;
+    linear-gradient(
+      180deg,
+      rgba(12,12,18,.88),
+      rgba(12,12,18,.82)
+    ) !important;
 
-  backdrop-filter: blur(18px) !important;
+  backdrop-filter: blur(20px) !important;
 
   border: 1px solid rgba(255,255,255,.08) !important;
 
   box-shadow:
-    0 20px 60px rgba(0,0,0,.45),
+    0 24px 60px rgba(0,0,0,.45),
     0 0 40px rgba(0,212,255,.08) !important;
-
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  gap: 20px !important;
-
-  pointer-events: auto !important;
 }
 
-.bynox-sticky-cart-left {
+.bynox-sticky-left {
   display: flex !important;
   align-items: center !important;
   gap: 18px !important;
 }
 
-.bynox-sticky-cart-left img {
+.bynox-sticky-left img {
   width: 72px !important;
   height: 72px !important;
+
   object-fit: cover !important;
+
+  border-radius: 20px !important;
+}
+
+.bynox-sticky-info h3 {
+  margin: 0 0 8px !important;
+
+  color: var(--bynox-white) !important;
+
+  font-size: 18px !important;
+}
+
+.bynox-sticky-price {
+  color: var(--bynox-cyan) !important;
+
+  font-size: 26px !important;
+
+  font-weight: 900 !important;
+}
+
+.bynox-sticky-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 18px !important;
+}
+
+.bynox-sticky-qty {
+  display: flex !important;
+  align-items: center !important;
+
+  overflow: hidden !important;
+
   border-radius: 18px !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
 
   background: rgba(255,255,255,.04) !important;
 }
 
-.bynox-sticky-cart-info h3 {
-  margin: 0 0 8px !important;
+.bynox-sticky-qty button {
+  width: 52px !important;
+  height: 52px !important;
+
+  border: none !important;
+
+  background: transparent !important;
+
   color: var(--bynox-white) !important;
-  font-size: 18px !important;
+
+  font-size: 24px !important;
+
+  cursor: pointer !important;
 }
 
-.bynox-sticky-cart-price {
-  color: var(--bynox-cyan) !important;
-  font-size: 22px !important;
+.bynox-sticky-qty input {
+  width: 62px !important;
+
+  border: none !important;
+
+  background: transparent !important;
+
+  color: var(--bynox-white) !important;
+
+  text-align: center !important;
+
+  font-size: 18px !important;
+
   font-weight: 800 !important;
+
+  outline: none !important;
+}
+
+.bynox-sticky-button {
+  min-width: 220px !important;
+
+  min-height: 62px !important;
+
+  border: none !important;
+
+  border-radius: 999px !important;
+
+  cursor: pointer !important;
+
+  font-weight: 900 !important;
+
+  font-size: 16px !important;
+
+  color: #fff !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--bynox-blue),
+      var(--bynox-cyan)
+    ) !important;
+
+  box-shadow:
+    0 18px 40px rgba(37,99,235,.35) !important;
 }
 
 @media(max-width: 768px) {
 
-  .bynox-sticky-cart-wrapper {
-    bottom: 12px !important;
-    padding: 0 12px !important;
-  }
-
   .bynox-sticky-cart {
+    width: calc(100% - 20px) !important;
+
     padding: 14px !important;
-    border-radius: 20px !important;
+
+    gap: 14px !important;
+
+    border-radius: 22px !important;
   }
 
-  .bynox-sticky-cart-left img {
+  .bynox-sticky-left img {
     width: 58px !important;
     height: 58px !important;
   }
 
-  .bynox-sticky-cart-info h3 {
+  .bynox-sticky-info h3 {
     font-size: 15px !important;
   }
 
-  .bynox-sticky-cart-price {
-    font-size: 18px !important;
+  .bynox-sticky-price {
+    font-size: 20px !important;
   }
 
-  .bynox-sticky-cart .bynox-btn {
-    padding: 14px 18px !important;
-    font-size: 14px !important;
+  .bynox-sticky-actions {
+    gap: 10px !important;
+  }
+
+  .bynox-sticky-button {
+    min-width: auto !important;
+
+    padding: 0 20px !important;
+
+    min-height: 56px !important;
+  }
+
+  .bynox-sticky-qty {
+    display: none !important;
   }
 
 }
 </style>
+
+<script>
+function bynoxStickyIncreaseQty() {
+
+  const input = document.getElementById('bynoxStickyQty');
+
+  input.value = parseInt(input.value) + 1;
+
+}
+
+function bynoxStickyDecreaseQty() {
+
+  const input = document.getElementById('bynoxStickyQty');
+
+  if (parseInt(input.value) > 1) {
+    input.value = parseInt(input.value) - 1;
+  }
+
+}
+</script>
 
 {% schema %}
 {
   "name": "BYNOX Sticky Cart",
   "settings": [
     {
-      "type": "image_picker",
-      "id": "product_image",
-      "label": "Imagen producto"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Título",
-      "default": "Corrector de postura BYNOX"
-    },
-    {
-      "type": "text",
-      "id": "price",
-      "label": "Precio",
-      "default": "$39.99"
+      "type": "product",
+      "id": "product",
+      "label": "Producto"
     },
     {
       "type": "text",
       "id": "button_label",
       "label": "Texto botón",
       "default": "Comprar ahora"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Link botón"
     }
   ],
   "presets": [
