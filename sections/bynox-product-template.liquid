@@ -8,34 +8,38 @@
 
         <div class="bynox-product-main-image">
 
-          {% if product.featured_image %}
-            <img
-              src="{{ product.featured_image | image_url: width: 1400 }}"
-              alt="{{ product.title | escape }}"
-              width="1400"
-              height="1400"
-              loading="lazy"
-            >
-          {% endif %}
+       {% if product.featured_image %}
+      <img
+      id="bynoxMainProductImage"
+      src="{{ product.featured_image | image_url: width: 1400 }}"
+      alt="{{ product.title | escape }}"
+      width="1400"
+      height="1400"
+      loading="lazy"
+     >
+         {% endif %}
 
-        </div>
+         </div>
 
-        {% if product.images.size > 1 %}
+         {% if product.images.size > 1 %}
 
           <div class="bynox-product-thumbnails">
 
             {% for image in product.images limit: 4 %}
-              <div class="bynox-product-thumb">
+             <div
+                class="bynox-product-thumb"
+              data-image="{{ image | image_url: width: 1400 }}"
+              >
 
-                <img
-                  src="{{ image | image_url: width: 300 }}"
-                  alt="{{ product.title | escape }}"
-                  width="300"
-                  height="300"
-                  loading="lazy"
-                >
+             <img
+             src="{{ image | image_url: width: 300 }}"
+             alt="{{ product.title | escape }}"
+             width="300"
+             height="300"
+             loading="lazy"
+               >
 
-              </div>
+            </div>
             {% endfor %}
 
           </div>
@@ -166,6 +170,9 @@
   object-fit: contain !important;
 
   max-width: 82% !important;
+  transition:
+  opacity .25s ease,
+  transform .35s ease !important;
 }
 
 .bynox-product-thumbnails {
@@ -179,6 +186,14 @@
 }
 
 .bynox-product-thumb {
+  cursor: pointer !important;
+  transition:
+  transform .25s ease,
+  border-color .25s ease !important;
+  .bynox-product-thumb:hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(0,212,255,.24) !important;
+}
   overflow: hidden !important;
 
   border-radius: 20px !important;
@@ -321,6 +336,39 @@
 
 }
 </style>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const mainImage = document.getElementById('bynoxMainProductImage');
+
+  const thumbs = document.querySelectorAll('.bynox-product-thumb');
+
+  thumbs.forEach(thumb => {
+
+    thumb.addEventListener('click', () => {
+
+      const image = thumb.dataset.image;
+
+      if (mainImage && image) {
+
+        mainImage.style.opacity = '0';
+
+        setTimeout(() => {
+
+          mainImage.src = image;
+
+          mainImage.style.opacity = '1';
+
+        }, 180);
+
+      }
+
+    });
+
+  });
+
+});
+</script>
 
 {% schema %}
 {
