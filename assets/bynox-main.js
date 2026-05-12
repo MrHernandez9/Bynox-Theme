@@ -1,3 +1,5 @@
+document.documentElement.classList.add('js');
+
 document.addEventListener('DOMContentLoaded', () => {
 
   const revealElements = document.querySelectorAll('[data-bynox-reveal]');

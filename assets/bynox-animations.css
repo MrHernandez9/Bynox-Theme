@@ -1,4 +1,9 @@
 [data-bynox-reveal] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.js [data-bynox-reveal] {
   opacity: 0;
   transform: translateY(60px);
   transition:
@@ -6,7 +11,7 @@
     transform .9s ease;
 }
 
-[data-bynox-reveal].active {
+.js [data-bynox-reveal].active {
   opacity: 1;
   transform: translateY(0);
 }
