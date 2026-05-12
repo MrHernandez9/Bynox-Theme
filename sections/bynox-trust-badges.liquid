@@ -1,0 +1,205 @@
+<section class="bynox-section bynox-trust-section">
+  <div class="bynox-container" data-bynox-reveal>
+
+    <div class="bynox-trust-grid">
+
+      {% for block in section.blocks %}
+        <div class="bynox-trust-card" {{ block.shopify_attributes }}>
+
+          <div class="bynox-trust-icon">
+            {{ block.settings.icon }}
+          </div>
+
+          <div class="bynox-trust-content">
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+          </div>
+
+        </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+.bynox-trust-section {
+  padding: 60px 0 120px !important;
+}
+
+.bynox-trust-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+  gap: 22px !important;
+}
+
+.bynox-trust-card {
+  position: relative !important;
+
+  display: flex !important;
+  align-items: center !important;
+  gap: 18px !important;
+
+  padding: 28px !important;
+
+  border-radius: 28px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.03)
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+
+  transition:
+    transform .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease !important;
+}
+
+.bynox-trust-card:hover {
+  transform: translateY(-8px) !important;
+
+  border-color: rgba(0,212,255,.22) !important;
+
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.35),
+    0 0 35px rgba(0,212,255,.08) !important;
+}
+
+.bynox-trust-icon {
+  width: 66px !important;
+  height: 66px !important;
+
+  border-radius: 20px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  flex-shrink: 0 !important;
+
+  font-size: 30px !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(37,99,235,.22),
+      rgba(0,212,255,.18)
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.bynox-trust-content h3 {
+  margin: 0 0 8px !important;
+
+  color: var(--bynox-white) !important;
+
+  font-size: 20px !important;
+}
+
+.bynox-trust-content p {
+  margin: 0 !important;
+
+  color: rgba(245,247,250,.68) !important;
+
+  line-height: 1.7 !important;
+
+  font-size: 15px !important;
+}
+
+@media(max-width: 1100px) {
+
+  .bynox-trust-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  }
+
+}
+
+@media(max-width: 768px) {
+
+  .bynox-trust-section {
+    padding: 40px 0 80px !important;
+  }
+
+  .bynox-trust-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+}
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX Trust Badges",
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Ícono",
+          "default": "🛡️"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Compra segura"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto",
+          "default": "Tus pagos y datos están protegidos."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX Trust Badges",
+      "blocks": [
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "🚚",
+            "title": "Envío rápido",
+            "text": "Procesamos pedidos rápidamente."
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Compra segura",
+            "text": "Pagos protegidos y seguros."
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "💬",
+            "title": "Soporte",
+            "text": "Atención rápida y personalizada."
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "⭐",
+            "title": "Calidad premium",
+            "text": "Diseñado para durar y sentirse cómodo."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
