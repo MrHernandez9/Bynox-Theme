@@ -66,20 +66,136 @@
 
         {% form 'product', product %}
 
-          <input
-            type="hidden"
-            name="id"
-            value="{{ product.selected_or_first_available_variant.id }}"
-          >
+  <input
+    type="hidden"
+    name="id"
+    value="{{ product.selected_or_first_available_variant.id }}"
+  >
 
-          <button
-            type="submit"
-            class="bynox-btn bynox-btn-primary bynox-product-button"
-          >
-            {{ section.settings.button_label }}
-          </button>
+  <div class="bynox-quantity-wrapper">
 
-        {% endform %}
+    <button
+      type="button"
+      class="bynox-qty-btn"
+      onclick="bynoxDecreaseQty()"
+    >
+      −
+    </button>
+
+    <input
+      id="bynoxQtyInput"
+      type="number"
+      name="quantity"
+      value="1"
+      min="1"
+    >
+
+    <button
+      type="button"
+      class="bynox-qty-btn"
+      onclick="bynoxIncreaseQty()"
+    >
+      +
+    </button>
+
+  </div>
+
+  <button
+    type="submit"
+    class="bynox-btn bynox-btn-primary bynox-product-button"
+  >
+    {{ section.settings.button_label }}
+  </button>
+    <script>
+function bynoxIncreaseQty() {
+
+  const input = document.getElementById('bynoxQtyInput');
+
+  input.value = parseInt(input.value) + 1;
+
+}
+
+function bynoxDecreaseQty() {
+
+  const input = document.getElementById('bynoxQtyInput');
+
+  if (parseInt(input.value) > 1) {
+    input.value = parseInt(input.value) - 1;
+  }
+
+}
+.bynox-quantity-wrapper {
+  display: flex !important;
+  align-items: center !important;
+
+  overflow: hidden !important;
+
+  width: fit-content !important;
+
+  border-radius: 22px !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.03)
+    ) !important;
+
+  margin-bottom: 26px !important;
+}
+
+.bynox-qty-btn {
+  width: 62px !important;
+  height: 62px !important;
+
+  border: none !important;
+
+  background: transparent !important;
+
+  color: var(--bynox-white) !important;
+
+  font-size: 28px !important;
+
+  cursor: pointer !important;
+
+  transition:
+    background .25s ease,
+    color .25s ease !important;
+}
+
+.bynox-qty-btn:hover {
+  background: rgba(255,255,255,.05) !important;
+
+  color: var(--bynox-cyan) !important;
+}
+
+#bynoxQtyInput {
+  width: 80px !important;
+
+  border: none !important;
+
+  background: transparent !important;
+
+  text-align: center !important;
+
+  color: var(--bynox-white) !important;
+
+  font-size: 20px !important;
+
+  font-weight: 800 !important;
+
+  outline: none !important;
+}
+
+#bynoxQtyInput::-webkit-outer-spin-button,
+#bynoxQtyInput::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+</script>
+   {% endform %}
 
         <div class="bynox-product-trust">
 
