@@ -11,27 +11,53 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
-    "bynox_footer_h7bb7a": {
-      "type": "bynox-footer",
-      "disabled": true,
-      "name": "BYNOX Footer",
-      "settings": {
-        "brand_name": "BYNOX",
-        "description": "Soluciones modernas para una vida más cómoda. Compra inteligente. Vive mejor.",
-        "menu": "",
-        "menu_title": "Enlaces",
-        "newsletter_title": "Recibe ofertas exclusivas",
-        "newsletter_text": "Suscríbete para recibir novedades, descuentos y lanzamientos de BYNOX.",
-        "email_placeholder": "Tu correo electrónico",
-        "button_label": "Unirme",
-        "instagram": "",
-        "tiktok": "",
-        "whatsapp": "",
-        "bottom_text": "Compra segura · Envío rápido · Garantía"
-      }
+    "bynox_trust_badges_DQgxtJ": {
+      "type": "bynox-trust-badges",
+      "blocks": {
+        "badge_yKVn3H": {
+          "type": "badge",
+          "settings": {
+            "icon": "🚚",
+            "title": "Envío rápido",
+            "text": "Procesamos pedidos rápidamente."
+          }
+        },
+        "badge_tUNMnR": {
+          "type": "badge",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Compra segura",
+            "text": "Pagos protegidos y seguros."
+          }
+        },
+        "badge_aHpiVi": {
+          "type": "badge",
+          "settings": {
+            "icon": "💬",
+            "title": "Soporte",
+            "text": "Atención rápida y personalizada."
+          }
+        },
+        "badge_YbWp9m": {
+          "type": "badge",
+          "settings": {
+            "icon": "⭐",
+            "title": "Calidad premium",
+            "text": "Diseñado para durar y sentirse cómodo."
+          }
+        }
+      },
+      "block_order": [
+        "badge_yKVn3H",
+        "badge_tUNMnR",
+        "badge_aHpiVi",
+        "badge_YbWp9m"
+      ],
+      "name": "BYNOX Trust Badges",
+      "settings": {}
     }
   },
   "order": [
-    "bynox_footer_h7bb7a"
+    "bynox_trust_badges_DQgxtJ"
   ]
 }
