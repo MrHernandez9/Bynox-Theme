@@ -1,0 +1,343 @@
+<section class="bynox-product-template">
+
+  <div class="bynox-container" data-bynox-reveal>
+
+    <div class="bynox-product-grid">
+
+      <div class="bynox-product-gallery">
+
+        <div class="bynox-product-main-image">
+
+          {% if product.featured_image %}
+            <img
+              src="{{ product.featured_image | image_url: width: 1400 }}"
+              alt="{{ product.title | escape }}"
+              width="1400"
+              height="1400"
+              loading="lazy"
+            >
+          {% endif %}
+
+        </div>
+
+        {% if product.images.size > 1 %}
+
+          <div class="bynox-product-thumbnails">
+
+            {% for image in product.images limit: 4 %}
+              <div class="bynox-product-thumb">
+
+                <img
+                  src="{{ image | image_url: width: 300 }}"
+                  alt="{{ product.title | escape }}"
+                  width="300"
+                  height="300"
+                  loading="lazy"
+                >
+
+              </div>
+            {% endfor %}
+
+          </div>
+
+        {% endif %}
+
+      </div>
+
+      <div class="bynox-product-info">
+
+        <span class="bynox-product-badge">
+          {{ section.settings.badge }}
+        </span>
+
+        <h1>{{ product.title }}</h1>
+
+        <div class="bynox-product-price">
+          {{ product.price | money }}
+        </div>
+
+        <div class="bynox-product-description">
+          {{ product.description }}
+        </div>
+
+        {% form 'product', product %}
+
+          <input
+            type="hidden"
+            name="id"
+            value="{{ product.selected_or_first_available_variant.id }}"
+          >
+
+          <button
+            type="submit"
+            class="bynox-btn bynox-btn-primary bynox-product-button"
+          >
+            {{ section.settings.button_label }}
+          </button>
+
+        {% endform %}
+
+        <div class="bynox-product-trust">
+
+          <div class="bynox-product-trust-item">
+            ✓ Compra segura
+          </div>
+
+          <div class="bynox-product-trust-item">
+            ✓ Envío rápido
+          </div>
+
+          <div class="bynox-product-trust-item">
+            ✓ Garantía premium
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+.bynox-product-template {
+  padding: 100px 0 !important;
+}
+
+.bynox-product-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 70px !important;
+  align-items: start !important;
+}
+
+.bynox-product-gallery {
+  position: sticky !important;
+  top: 120px !important;
+}
+
+.bynox-product-main-image {
+  position: relative !important;
+
+  overflow: hidden !important;
+
+  border-radius: 38px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.03)
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+
+  min-height: 720px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.bynox-product-main-image::before {
+  content: '' !important;
+
+  position: absolute !important;
+
+  width: 420px !important;
+  height: 420px !important;
+
+  border-radius: 50% !important;
+
+  background: rgba(0,212,255,.14) !important;
+
+  filter: blur(90px) !important;
+}
+
+.bynox-product-main-image img {
+  position: relative !important;
+  z-index: 2 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  object-fit: contain !important;
+
+  max-width: 82% !important;
+}
+
+.bynox-product-thumbnails {
+  display: grid !important;
+
+  grid-template-columns: repeat(4,1fr) !important;
+
+  gap: 16px !important;
+
+  margin-top: 18px !important;
+}
+
+.bynox-product-thumb {
+  overflow: hidden !important;
+
+  border-radius: 20px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.03)
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+
+  min-height: 130px !important;
+}
+
+.bynox-product-thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.bynox-product-badge {
+  display: inline-flex !important;
+
+  padding: 10px 18px !important;
+
+  border-radius: 999px !important;
+
+  background: rgba(0,212,255,.08) !important;
+
+  border: 1px solid rgba(0,212,255,.22) !important;
+
+  color: var(--bynox-cyan) !important;
+
+  font-weight: 800 !important;
+
+  margin-bottom: 24px !important;
+}
+
+.bynox-product-info h1 {
+  font-size: clamp(48px,5vw,82px) !important;
+
+  line-height: .95 !important;
+
+  color: var(--bynox-white) !important;
+
+  margin-bottom: 26px !important;
+}
+
+.bynox-product-price {
+  font-size: 42px !important;
+
+  font-weight: 900 !important;
+
+  color: var(--bynox-cyan) !important;
+
+  margin-bottom: 30px !important;
+}
+
+.bynox-product-description {
+  color: rgba(245,247,250,.72) !important;
+
+  line-height: 1.9 !important;
+
+  font-size: 18px !important;
+
+  margin-bottom: 40px !important;
+}
+
+.bynox-product-button {
+  width: 100% !important;
+
+  min-height: 72px !important;
+
+  font-size: 18px !important;
+
+  margin-bottom: 34px !important;
+}
+
+.bynox-product-trust {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+}
+
+.bynox-product-trust-item {
+  padding: 18px 20px !important;
+
+  border-radius: 20px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.03)
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+
+  color: rgba(245,247,250,.78) !important;
+
+  font-weight: 700 !important;
+}
+
+@media(max-width: 1000px) {
+
+  .bynox-product-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .bynox-product-gallery {
+    position: relative !important;
+    top: 0 !important;
+  }
+
+}
+
+@media(max-width: 768px) {
+
+  .bynox-product-template {
+    padding: 70px 0 !important;
+  }
+
+  .bynox-product-main-image {
+    min-height: 420px !important;
+  }
+
+  .bynox-product-thumbnails {
+    grid-template-columns: repeat(2,1fr) !important;
+  }
+
+  .bynox-product-info h1 {
+    font-size: 48px !important;
+  }
+
+  .bynox-product-price {
+    font-size: 34px !important;
+  }
+
+}
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX Product Template",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "Corrector premium"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto botón",
+      "default": "Comprar ahora"
+    }
+  ]
+}
+{% endschema %}
