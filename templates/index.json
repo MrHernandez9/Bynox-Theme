@@ -375,10 +375,8 @@
       "type": "bynox-sticky-cart",
       "name": "BYNOX Sticky Cart",
       "settings": {
-        "title": "Corrector de postura BYNOX",
-        "price": "$39.99",
-        "button_label": "Comprar ahora",
-        "button_link": ""
+        "product": "",
+        "button_label": "Comprar ahora"
       }
     }
   },
