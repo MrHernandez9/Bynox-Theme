@@ -10,54 +10,6 @@
 {
   "type": "footer",
   "name": "Footer",
-  "sections": {
-    "bynox_trust_badges_DQgxtJ": {
-      "type": "bynox-trust-badges",
-      "blocks": {
-        "badge_yKVn3H": {
-          "type": "badge",
-          "settings": {
-            "icon": "🚚",
-            "title": "Envío rápido",
-            "text": "Procesamos pedidos rápidamente."
-          }
-        },
-        "badge_tUNMnR": {
-          "type": "badge",
-          "settings": {
-            "icon": "🛡️",
-            "title": "Compra segura",
-            "text": "Pagos protegidos y seguros."
-          }
-        },
-        "badge_aHpiVi": {
-          "type": "badge",
-          "settings": {
-            "icon": "💬",
-            "title": "Soporte",
-            "text": "Atención rápida y personalizada."
-          }
-        },
-        "badge_YbWp9m": {
-          "type": "badge",
-          "settings": {
-            "icon": "⭐",
-            "title": "Calidad premium",
-            "text": "Diseñado para durar y sentirse cómodo."
-          }
-        }
-      },
-      "block_order": [
-        "badge_yKVn3H",
-        "badge_tUNMnR",
-        "badge_aHpiVi",
-        "badge_YbWp9m"
-      ],
-      "name": "BYNOX Trust Badges",
-      "settings": {}
-    }
-  },
-  "order": [
-    "bynox_trust_badges_DQgxtJ"
-  ]
+  "sections": {},
+  "order": []
 }

@@ -220,6 +220,51 @@
         "after_label": "Después"
       }
     },
+    "bynox_trust_badges_ABxccj": {
+      "type": "bynox-trust-badges",
+      "blocks": {
+        "badge_BE4JQz": {
+          "type": "badge",
+          "settings": {
+            "icon": "🚚",
+            "title": "Envío rápido",
+            "text": "Procesamos pedidos rápidamente."
+          }
+        },
+        "badge_KQhTiB": {
+          "type": "badge",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Compra segura",
+            "text": "Pagos protegidos y seguros."
+          }
+        },
+        "badge_q6hxVp": {
+          "type": "badge",
+          "settings": {
+            "icon": "💬",
+            "title": "Soporte",
+            "text": "Atención rápida y personalizada."
+          }
+        },
+        "badge_tTNKUb": {
+          "type": "badge",
+          "settings": {
+            "icon": "⭐",
+            "title": "Calidad premium",
+            "text": "Diseñado para durar y sentirse cómodo."
+          }
+        }
+      },
+      "block_order": [
+        "badge_BE4JQz",
+        "badge_KQhTiB",
+        "badge_q6hxVp",
+        "badge_tTNKUb"
+      ],
+      "name": "BYNOX Trust Badges",
+      "settings": {}
+    },
     "bynox_comparison_table_37bitg": {
       "type": "bynox-comparison-table",
       "blocks": {
@@ -344,6 +389,7 @@
     "bynox_video_section_K8RY3J",
     "bynox_how_it_works_jLEBWA",
     "bynox_results_section_VAfJGW",
+    "bynox_trust_badges_ABxccj",
     "bynox_comparison_table_37bitg",
     "bynox_testimonials_HBhK7p",
     "bynox_newsletter_qQKAwR",
