@@ -1,0 +1,275 @@
+<section class="bynox-section bynox-product-features">
+
+  <div class="bynox-container" data-bynox-reveal>
+
+    <div class="bynox-features-heading">
+
+      <span>{{ section.settings.badge }}</span>
+
+      <h2>{{ section.settings.heading }}</h2>
+
+      <p>{{ section.settings.subtitle }}</p>
+
+    </div>
+
+    <div class="bynox-features-grid">
+
+      {% for block in section.blocks %}
+
+        <div
+          class="bynox-feature-card"
+          {{ block.shopify_attributes }}
+        >
+
+          <div class="bynox-feature-icon">
+            {{ block.settings.icon }}
+          </div>
+
+          <h3>{{ block.settings.title }}</h3>
+
+          <p>{{ block.settings.text }}</p>
+
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+.bynox-product-features {
+  padding: 120px 0 !important;
+}
+
+.bynox-features-heading {
+  text-align: center !important;
+
+  max-width: 860px !important;
+
+  margin: 0 auto 70px !important;
+}
+
+.bynox-features-heading span {
+  display: inline-flex !important;
+
+  padding: 10px 18px !important;
+
+  border-radius: 999px !important;
+
+  border: 1px solid rgba(0,212,255,.22) !important;
+
+  background: rgba(0,212,255,.08) !important;
+
+  color: var(--bynox-cyan) !important;
+
+  font-weight: 800 !important;
+
+  margin-bottom: 24px !important;
+}
+
+.bynox-features-heading h2 {
+  font-size: clamp(42px,4vw,70px) !important;
+
+  line-height: 1 !important;
+
+  color: var(--bynox-white) !important;
+
+  margin-bottom: 24px !important;
+}
+
+.bynox-features-heading p {
+  color: rgba(245,247,250,.72) !important;
+
+  font-size: 20px !important;
+
+  line-height: 1.8 !important;
+}
+
+.bynox-features-grid {
+  display: grid !important;
+
+  grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+
+  gap: 24px !important;
+}
+
+.bynox-feature-card {
+  position: relative !important;
+
+  overflow: hidden !important;
+
+  padding: 42px !important;
+
+  border-radius: 34px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.03)
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+
+  transition:
+    transform .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease !important;
+}
+
+.bynox-feature-card:hover {
+  transform: translateY(-10px) !important;
+
+  border-color: rgba(0,212,255,.24) !important;
+
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.35),
+    0 0 35px rgba(0,212,255,.08) !important;
+}
+
+.bynox-feature-icon {
+  width: 78px !important;
+  height: 78px !important;
+
+  border-radius: 24px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  font-size: 36px !important;
+
+  margin-bottom: 28px !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(37,99,235,.22),
+      rgba(0,212,255,.18)
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.bynox-feature-card h3 {
+  color: var(--bynox-white) !important;
+
+  font-size: 28px !important;
+
+  margin: 0 0 18px !important;
+}
+
+.bynox-feature-card p {
+  color: rgba(245,247,250,.72) !important;
+
+  line-height: 1.8 !important;
+
+  margin: 0 !important;
+}
+
+@media(max-width: 1000px) {
+
+  .bynox-features-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+}
+
+@media(max-width: 768px) {
+
+  .bynox-product-features {
+    padding: 80px 0 !important;
+  }
+
+  .bynox-features-heading h2 {
+    font-size: 42px !important;
+  }
+
+}
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX Product Features",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "Beneficios premium"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Diseñado para comodidad y soporte diario"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "BYNOX combina comodidad, diseño ligero y soporte inteligente para ayudarte en tu rutina."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Ícono",
+          "default": "✓"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Soporte ergonómico"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto",
+          "default": "Diseñado para ayudarte a mantener una postura más cómoda."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX Product Features",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "🧍",
+            "title": "Mejor postura",
+            "text": "Ayuda a mantener una alineación más cómoda durante el día."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "💨",
+            "title": "Ligero y transpirable",
+            "text": "Materiales cómodos para usar mientras trabajas o estudias."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "⚡",
+            "title": "Uso diario",
+            "text": "Perfecto para oficina, estudio, gaming o actividades diarias."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
