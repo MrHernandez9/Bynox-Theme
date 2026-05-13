@@ -1,0 +1,395 @@
+<div id="bynoxCartOverlay"></div>
+
+<div id="bynoxCartDrawer">
+
+  <div class="bynox-cart-header">
+
+    <h2>Tu carrito</h2>
+
+    <button id="bynoxCloseCart">
+      ✕
+    </button>
+
+  </div>
+
+  <div id="bynoxCartContent">
+
+    {% if cart.item_count > 0 %}
+
+      {% for item in cart.items %}
+
+        <div class="bynox-cart-item">
+
+          <img
+            src="{{ item.image | image_url: width: 240 }}"
+            alt="{{ item.product.title | escape }}"
+            width="240"
+            height="240"
+          >
+
+          <div class="bynox-cart-item-info">
+
+            <h3>{{ item.product.title }}</h3>
+
+            <div class="bynox-cart-price">
+              {{ item.final_price | money }}
+            </div>
+
+            <div class="bynox-cart-controls">
+
+              <div class="bynox-cart-qty-controls">
+
+                <button
+                  onclick="bynoxUpdateQuantity({{ item.variant_id }}, {{ item.quantity | minus: 1 }})"
+                >
+                  −
+                </button>
+
+                <span>{{ item.quantity }}</span>
+
+                <button
+                  onclick="bynoxUpdateQuantity({{ item.variant_id }}, {{ item.quantity | plus: 1 }})"
+                >
+                  +
+                </button>
+
+              </div>
+
+              <button
+                class="bynox-remove-item"
+                onclick="bynoxRemoveItem({{ item.variant_id }})"
+              >
+                Eliminar
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      {% endfor %}
+
+    {% else %}
+
+      <div class="bynox-empty-cart">
+        Tu carrito está vacío.
+      </div>
+
+    {% endif %}
+
+  </div>
+
+  <div class="bynox-cart-footer">
+
+    <div class="bynox-cart-total">
+      Total:
+      <span>{{ cart.total_price | money }}</span>
+    </div>
+
+    <a
+      href="{{ routes.cart_url }}"
+      class="bynox-cart-button secondary"
+    >
+      Ver carrito
+    </a>
+
+    <a
+      href="/checkout"
+      class="bynox-cart-button primary"
+    >
+      Finalizar compra
+    </a>
+
+  </div>
+
+</div>
+
+<style>
+#bynoxCartOverlay {
+  position: fixed !important;
+
+  inset: 0 !important;
+
+  background: rgba(0,0,0,.55) !important;
+
+  z-index: 9998 !important;
+
+  opacity: 0 !important;
+  visibility: hidden !important;
+
+  transition:
+    opacity .35s ease,
+    visibility .35s ease !important;
+}
+
+#bynoxCartOverlay.active {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#bynoxCartDrawer {
+  position: fixed !important;
+
+  top: 0 !important;
+  right: 0 !important;
+
+  width: 100% !important;
+  max-width: 520px !important;
+
+  height: 100vh !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(12,12,18,.96),
+      rgba(12,12,18,.92)
+    ) !important;
+
+  backdrop-filter: blur(24px) !important;
+
+  border-left: 1px solid rgba(255,255,255,.08) !important;
+
+  z-index: 9999 !important;
+
+  transform: translateX(100%) !important;
+
+  transition: transform .4s ease !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+#bynoxCartDrawer.active {
+  transform: translateX(0) !important;
+}
+
+.bynox-cart-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+
+  padding: 28px !important;
+
+  border-bottom: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.bynox-cart-header h2 {
+  margin: 0 !important;
+
+  color: var(--bynox-white) !important;
+
+  font-size: 30px !important;
+}
+
+#bynoxCloseCart {
+  width: 48px !important;
+  height: 48px !important;
+
+  border-radius: 50% !important;
+
+  border: none !important;
+
+  background: rgba(255,255,255,.06) !important;
+
+  color: var(--bynox-white) !important;
+
+  font-size: 20px !important;
+
+  cursor: pointer !important;
+}
+
+#bynoxCartContent {
+  flex: 1 !important;
+
+  overflow-y: auto !important;
+
+  padding: 28px !important;
+}
+
+.bynox-cart-item {
+  display: flex !important;
+  gap: 18px !important;
+
+  margin-bottom: 24px !important;
+}
+
+.bynox-cart-item img {
+  width: 110px !important;
+  height: 110px !important;
+
+  object-fit: cover !important;
+
+  border-radius: 24px !important;
+}
+
+.bynox-cart-item-info h3 {
+  margin: 0 0 10px !important;
+
+  color: var(--bynox-white) !important;
+
+  font-size: 18px !important;
+}
+
+.bynox-cart-price {
+  color: var(--bynox-cyan) !important;
+
+  font-weight: 900 !important;
+
+  margin-bottom: 8px !important;
+}
+
+.bynox-cart-qty {
+  color: rgba(245,247,250,.68) !important;
+}
+
+.bynox-empty-cart {
+  color: rgba(245,247,250,.68) !important;
+}
+
+.bynox-cart-footer {
+  padding: 28px !important;
+
+  border-top: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.bynox-cart-total {
+  display: flex !important;
+  justify-content: space-between !important;
+
+  color: var(--bynox-white) !important;
+
+  font-size: 24px !important;
+
+  font-weight: 900 !important;
+
+  margin-bottom: 24px !important;
+}
+
+.bynox-cart-total span {
+  color: var(--bynox-cyan) !important;
+}
+
+.bynox-cart-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 100% !important;
+
+  min-height: 62px !important;
+
+  border-radius: 999px !important;
+
+  text-decoration: none !important;
+
+  font-weight: 900 !important;
+
+  margin-bottom: 14px !important;
+}
+
+.bynox-cart-button.primary {
+  background:
+    linear-gradient(
+      135deg,
+      var(--bynox-blue),
+      var(--bynox-cyan)
+    ) !important;
+
+  color: #fff !important;
+}
+
+.bynox-cart-button.secondary {
+  background: rgba(255,255,255,.06) !important;
+
+  color: var(--bynox-white) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.bynox-cart-controls {
+  margin-top: 16px !important;
+}
+
+.bynox-cart-qty-controls {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+
+  margin-bottom: 14px !important;
+}
+
+.bynox-cart-qty-controls button {
+  width: 36px !important;
+  height: 36px !important;
+
+  border-radius: 12px !important;
+
+  border: none !important;
+
+  background: rgba(255,255,255,.06) !important;
+
+  color: var(--bynox-white) !important;
+
+  cursor: pointer !important;
+}
+
+.bynox-cart-qty-controls span {
+  color: var(--bynox-white) !important;
+
+  font-weight: 800 !important;
+}
+
+.bynox-remove-item {
+  border: none !important;
+
+  background: transparent !important;
+
+  color: #ff6b6b !important;
+
+  cursor: pointer !important;
+
+  padding: 0 !important;
+
+  font-size: 14px !important;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const drawer = document.getElementById('bynoxCartDrawer');
+
+  const overlay = document.getElementById('bynoxCartOverlay');
+
+  const closeBtn = document.getElementById('bynoxCloseCart');
+
+  function closeCart() {
+
+    drawer.classList.remove('active');
+
+    overlay.classList.remove('active');
+
+  }
+
+  overlay.addEventListener('click', closeCart);
+
+  closeBtn.addEventListener('click', closeCart);
+
+});
+const openCartBtn = document.getElementById('bynoxOpenCart');
+
+function openCart() {
+
+  drawer.classList.add('active');
+
+  overlay.classList.add('active');
+
+}
+
+if (openCartBtn) {
+
+  openCartBtn.addEventListener('click', openCart);
+
+}
+</script>

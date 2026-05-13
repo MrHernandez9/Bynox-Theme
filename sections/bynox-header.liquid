@@ -27,9 +27,19 @@
         </a>
       {% endif %}
 
-      <a href="{{ routes.cart_url }}" class="bynox-header-cart">
-        🛒
-      </a>
+      <button
+  type="button"
+  class="bynox-header-cart"
+  id="bynoxOpenCart"
+>
+
+  🛒
+
+  <span id="bynoxCartCount">
+    {{ cart.item_count }}
+  </span>
+
+</button>
     </div>
   </div>
 </header>
@@ -110,6 +120,57 @@
 }
 
 .bynox-header-cart {
+  .bynox-header-cart {
+  position: relative !important;
+
+  width: 54px !important;
+  height: 54px !important;
+
+  border-radius: 18px !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.03)
+    ) !important;
+
+  color: var(--bynox-white) !important;
+
+  font-size: 22px !important;
+
+  cursor: pointer !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#bynoxCartCount {
+  position: absolute !important;
+
+  top: -6px !important;
+  right: -6px !important;
+
+  min-width: 24px !important;
+  height: 24px !important;
+
+  border-radius: 999px !important;
+
+  background: var(--bynox-cyan) !important;
+
+  color: #000 !important;
+
+  font-size: 12px !important;
+
+  font-weight: 900 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
   width: 44px !important;
   height: 44px !important;
   border-radius: 999px !important;

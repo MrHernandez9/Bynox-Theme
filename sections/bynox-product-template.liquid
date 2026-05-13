@@ -64,7 +64,7 @@
           {{ product.description }}
         </div>
 
-        {% form 'product', product %}
+        {% form 'product', product, action: '/cart/add' %}
 
   <input
     type="hidden"
