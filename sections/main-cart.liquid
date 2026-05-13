@@ -1,218 +1,392 @@
+<section class="bynox-cart-page">
 
+  <div class="bynox-container">
 
-{% capture cart_page_more_blocks_content %}
-  <div class="cart-page__more-blocks">
-    {%- content_for 'blocks' -%}
-  </div>
-{% endcapture %}
+    <div class="bynox-cart-layout">
 
-{% capture cart_items_children %}
-  <template id="empty-cart-template">
-    <div class="section-background color-{{ section.settings.color_scheme }}"></div>
-    <div
-      class="section color-{{ section.settings.color_scheme }} section--{{ section.settings.section_width }}"
-    >
-      <div
-        class="cart-page spacing-style{% if cart.empty? %} cart-page--empty{% endif %}"
-        style="{% render 'spacing-style', settings: section.settings %}"
-      >
-        <div class="cart-page__title">
-          {%- content_for 'block', id: 'cart-page-title', type: '_cart-title', force_empty: true %}
+      <div class="bynox-cart-products">
+
+        <div class="bynox-cart-heading">
+
+          <span>Tu carrito</span>
+
+          <h1>Revisa tu pedido</h1>
+
         </div>
-        <div class="cart-page__items">
-          {%- content_for 'block', id: 'cart-page-items', type: '_cart-products', force_empty: true %}
-        </div>
-        {{ cart_page_more_blocks_content }}
+
+        {% if cart.item_count > 0 %}
+
+          {% for item in cart.items %}
+
+            <div class="bynox-cart-product">
+
+              <div class="bynox-cart-image">
+
+                <img
+                  src="{{ item.image | image_url: width: 500 }}"
+                  alt="{{ item.product.title | escape }}"
+                  width="500"
+                  height="500"
+                >
+
+              </div>
+
+              <div class="bynox-cart-details">
+
+                <h2>{{ item.product.title }}</h2>
+
+                <div class="bynox-cart-price">
+                  {{ item.final_price | money }}
+                </div>
+
+                <div class="bynox-cart-qty">
+
+                  <button
+                    onclick="bynoxUpdateQuantity({{ item.variant_id }}, {{ item.quantity | minus: 1 }})"
+                  >
+                    −
+                  </button>
+
+                  <span>{{ item.quantity }}</span>
+
+                  <button
+                    onclick="bynoxUpdateQuantity({{ item.variant_id }}, {{ item.quantity | plus: 1 }})"
+                  >
+                    +
+                  </button>
+
+                </div>
+
+                <button
+                  class="bynox-cart-remove"
+                  onclick="bynoxRemoveItem({{ item.variant_id }})"
+                >
+                  Eliminar producto
+                </button>
+
+              </div>
+
+            </div>
+
+          {% endfor %}
+
+        {% else %}
+
+          <div class="bynox-empty-cart-page">
+
+            <h2>Tu carrito está vacío.</h2>
+
+            <a
+             href="{{ routes.root_url }}"
+              class="bynox-empty-cart-button"
+            >
+              Seguir comprando
+            </a>
+
+          </div>
+
+        {% endif %}
+
       </div>
+
+      <div class="bynox-cart-summary">
+
+        <div class="bynox-summary-card">
+
+          <h3>Resumen</h3>
+
+          <div class="bynox-summary-row">
+            <span>Subtotal</span>
+            <strong>{{ cart.total_price | money }}</strong>
+          </div>
+
+          <div class="bynox-summary-row">
+            <span>Envío</span>
+            <strong>Gratis</strong>
+          </div>
+
+          <div class="bynox-summary-divider"></div>
+
+          <div class="bynox-summary-total">
+            <span>Total</span>
+            <strong>{{ cart.total_price | money }}</strong>
+          </div>
+
+          <a
+            href="/checkout"
+            class="bynox-summary-button"
+          >
+            Finalizar compra
+          </a>
+
+          <div class="bynox-summary-trust">
+
+            <div>✓ Pago seguro</div>
+
+            <div>✓ Envío rápido</div>
+
+            <div>✓ Garantía premium</div>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
-  </template>
 
-  {% # theme-check-disable UniqueStaticBlockId %}
-  <div class="section-background color-{{ section.settings.color_scheme }}"></div>
-  <div
-    class="section color-{{ section.settings.color_scheme }} section--{{ section.settings.section_width }}"
-  >
-    <div
-      class="cart-page spacing-style{% if cart.empty? %} cart-page--empty{% endif %}"
-      style="{% render 'spacing-style', settings: section.settings %}"
-    >
-      <div class="cart-page__title">
-        {%- content_for 'block', id: 'cart-page-title', type: '_cart-title' %}
-      </div>
-
-      <div class="cart-page__items">
-        {%- content_for 'block', id: 'cart-page-items', type: '_cart-products' %}
-      </div>
-
-      {%- unless cart.empty? -%}
-        <div class="cart-page__summary">
-          {%- content_for 'block', id: 'cart-page-summary', type: '_cart-summary' -%}
-        </div>
-      {%- endunless -%}
-
-      {{ cart_page_more_blocks_content }}
-    </div>
   </div>
-  {% # theme-check-enable UniqueStaticBlockId %}
-{% endcapture %}
-{% render 'cart-items-component', children: cart_items_children, section_id: section.id %}
 
-{% stylesheet %}
-  .cart-page {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0 var(--padding-5xl);
-  }
+</section>
 
-  .cart-page--empty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .cart-page--empty .cart-page__title,
-  .cart-page--empty .cart-page__more-blocks {
-    margin-top: var(--margin-6xl);
-  }
-
-  .cart-page__more-blocks {
-    width: 100%;
-  }
-
-  .cart-page--empty .cart-title {
-    text-align: center;
-  }
-
-  .cart-page__main {
-    grid-column: 1;
-  }
-
-  .cart-page__summary {
-    padding-top: var(--padding-xl);
-  }
-
-  .cart-page__title + .cart-page__items {
-    margin-block-start: var(--margin-lg);
-  }
-
-  @media screen and (min-width: 750px) {
-    .cart-page {
-      grid-template-columns: 1fr min(50vw, var(--sidebar-width));
-      grid-template-rows: min-content min-content 1fr;
-    }
-
-    .cart-page__summary {
-      display: grid;
-      height: 100%;
-      grid-column: 2;
-      grid-row: 1 / -1;
-      align-self: stretch;
-      grid-template-rows: subgrid;
-      padding-top: 0;
-
-      /* needed to support blurred effect from hero section */
-      position: relative;
-    }
-
-    .section--page-width .cart-page:has(.cart-summary--extend) {
-      grid-column: 2 / 4;
-      grid-template-columns: 1fr minmax(
-          var(--sidebar-width),
-          calc((100vw - var(--page-width)) / 2 + var(--sidebar-width))
-        );
-    }
-  }
-
-  @media screen and (min-width: 1400px) {
-    .cart-page {
-      grid-template-columns: 1fr var(--sidebar-width);
-    }
-  }
-{% endstylesheet %}
-
-{% schema %}
-{
-  "name": "t:names.cart",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
-  "blocks": [
-    {
-      "type": "@theme"
-    },
-    {
-      "type": "@app"
-    },
-    {
-      "type": "text"
-    },
-    {
-      "type": "icon"
-    },
-    {
-      "type": "image"
-    },
-    {
-      "type": "button"
-    },
-    {
-      "type": "video"
-    },
-    {
-      "type": "group"
-    },
-    {
-      "type": "spacer"
-    }
-  ],
-  "settings": [
-    {
-      "type": "select",
-      "id": "section_width",
-      "label": "t:settings.width",
-      "options": [
-        {
-          "value": "page-width",
-          "label": "t:options.page"
-        },
-        {
-          "value": "full-width",
-          "label": "t:options.full"
-        }
-      ],
-      "default": "page-width"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:settings.color_scheme",
-      "default": "scheme-1"
-    },
-    {
-      "type": "header",
-      "content": "t:content.padding"
-    },
-    {
-      "type": "range",
-      "id": "padding-block-start",
-      "label": "t:settings.top",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "padding-block-end",
-      "label": "t:settings.bottom",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 0
-    }
-  ]
+<style>
+.bynox-cart-page {
+  padding: 120px 0 !important;
 }
-{% endschema %}
+
+.bynox-cart-layout {
+  display: grid !important;
+
+  grid-template-columns: 1.4fr .7fr !important;
+
+  gap: 34px !important;
+
+  align-items: start !important;
+}
+
+.bynox-cart-heading {
+  margin-bottom: 40px !important;
+}
+
+.bynox-cart-heading span {
+  color: var(--bynox-cyan) !important;
+
+  font-weight: 800 !important;
+}
+
+.bynox-cart-heading h1 {
+  font-size: clamp(42px,4vw,72px) !important;
+
+  color: var(--bynox-white) !important;
+
+  margin-top: 12px !important;
+}
+
+.bynox-cart-product {
+  display: flex !important;
+
+  gap: 26px !important;
+
+  margin-bottom: 24px !important;
+
+  padding: 24px !important;
+
+  border-radius: 30px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.03)
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.bynox-cart-image img {
+  width: 180px !important;
+  height: 180px !important;
+
+  object-fit: cover !important;
+
+  border-radius: 24px !important;
+}
+
+.bynox-cart-details h2 {
+  color: var(--bynox-white) !important;
+
+  margin: 0 0 18px !important;
+}
+
+.bynox-cart-price {
+  color: var(--bynox-cyan) !important;
+
+  font-size: 28px !important;
+
+  font-weight: 900 !important;
+
+  margin-bottom: 24px !important;
+}
+
+.bynox-cart-qty {
+  display: flex !important;
+  align-items: center !important;
+
+  gap: 14px !important;
+
+  margin-bottom: 24px !important;
+}
+
+.bynox-cart-qty button {
+  width: 44px !important;
+  height: 44px !important;
+
+  border-radius: 14px !important;
+
+  border: none !important;
+
+  background: rgba(255,255,255,.08) !important;
+
+  color: var(--bynox-white) !important;
+
+  font-size: 20px !important;
+
+  cursor: pointer !important;
+}
+
+.bynox-cart-qty span {
+  color: var(--bynox-white) !important;
+
+  font-size: 18px !important;
+
+  font-weight: 800 !important;
+}
+
+.bynox-cart-remove {
+  border: none !important;
+
+  background: transparent !important;
+
+  color: #ff6b6b !important;
+
+  cursor: pointer !important;
+}
+
+.bynox-summary-card {
+  position: sticky !important;
+
+  top: 120px !important;
+
+  padding: 34px !important;
+
+  border-radius: 34px !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.03)
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.bynox-summary-card h3 {
+  color: var(--bynox-white) !important;
+
+  font-size: 32px !important;
+
+  margin-bottom: 30px !important;
+}
+
+.bynox-summary-row,
+.bynox-summary-total {
+  display: flex !important;
+  justify-content: space-between !important;
+
+  margin-bottom: 18px !important;
+
+  color: var(--bynox-white) !important;
+}
+
+.bynox-summary-divider {
+  height: 1px !important;
+
+  background: rgba(255,255,255,.08) !important;
+
+  margin: 28px 0 !important;
+}
+
+.bynox-summary-total {
+  font-size: 26px !important;
+
+  font-weight: 900 !important;
+}
+
+.bynox-summary-total strong {
+  color: var(--bynox-cyan) !important;
+}
+
+.bynox-summary-button,
+.bynox-empty-cart-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 100% !important;
+
+  min-height: 66px !important;
+
+  border-radius: 999px !important;
+
+  text-decoration: none !important;
+
+  margin-top: 28px !important;
+
+  font-weight: 900 !important;
+
+  color: #fff !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--bynox-blue),
+      var(--bynox-cyan)
+    ) !important;
+}
+
+.bynox-summary-trust {
+  margin-top: 30px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+
+  color: rgba(245,247,250,.72) !important;
+}
+
+.bynox-empty-cart-page {
+  text-align: center !important;
+
+  padding: 100px 20px !important;
+}
+
+.bynox-empty-cart-page h2 {
+  color: var(--bynox-white) !important;
+}
+
+@media(max-width: 1000px) {
+
+  .bynox-cart-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+}
+
+@media(max-width: 768px) {
+
+  .bynox-cart-page {
+    padding: 70px 0 !important;
+  }
+
+  .bynox-cart-product {
+    flex-direction: column !important;
+  }
+
+  .bynox-cart-image img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+}
+</style>
