@@ -258,6 +258,7 @@
           ]
         }
       },
+      "disabled": true,
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
@@ -269,9 +270,18 @@
         "padding-block-start": 25,
         "padding-block-end": 0
       }
+    },
+    "bynox_product_template_LBKenP": {
+      "type": "bynox-product-template",
+      "name": "BYNOX Product Template",
+      "settings": {
+        "badge": "Corrector premium",
+        "button_label": "Comprar ahora"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "bynox_product_template_LBKenP"
   ]
 }
