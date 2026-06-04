@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const cartCount = document.getElementById('bynoxCartCount');
 
-  function openCartDrawer() {
+window.openCartDrawer = function() {
 
     if (cartDrawer) {
       cartDrawer.classList.add('active');
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
-  async function updateCartDrawer() {
+  window.updateCartDrawer = async function() {
 
     try {
 
@@ -153,7 +153,7 @@ productForms.forEach((form) => {
 
 });
 
-async function bynoxUpdateQuantity(variantId, quantity) {
+window.bynoxUpdateQuantity = async function(variantId, quantity) {
 
   if (quantity < 1) {
     bynoxRemoveItem(variantId);
@@ -175,7 +175,7 @@ async function bynoxUpdateQuantity(variantId, quantity) {
 
 }
 
-async function bynoxRemoveItem(variantId) {
+window.bynoxRemoveItem = async function(variantId) {
 
   await fetch('/cart/change.js', {
     method: 'POST',
