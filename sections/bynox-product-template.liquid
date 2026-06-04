@@ -106,8 +106,69 @@
   >
     {{ section.settings.button_label }}
   </button>
-    <script>
-function bynoxIncreaseQty() {
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const productForm = document.querySelector('form[action="/cart/add"]');
+
+  if (!productForm) return;
+
+  productForm.addEventListener('submit', async (e) => {
+
+    e.preventDefault();
+
+    const formData = new FormData(productForm);
+
+    await fetch('/cart/add.js', {
+      method: 'POST',
+      body: formData
+    });
+
+    const cartResponse = await fetch('/cart.js');
+    const cart = await cartResponse.json();
+
+    const drawer = document.getElementById('bynoxCartDrawer');
+
+    if (!drawer) return;
+
+    let itemsHtml = '';
+
+    cart.items.forEach(item => {
+
+      itemsHtml += `
+        <div class="bynox-cart-item">
+
+          <img
+            src="${item.image}"
+            alt="${item.product_title}"
+          >
+
+          <div class="bynox-cart-item-info">
+
+            <h4>${item.product_title}</h4>
+
+            <p>$${(item.final_line_price / 100).toFixed(2)}</p>
+
+          </div>
+
+        </div>
+      `;
+
+    });
+
+    drawer.querySelector('.bynox-cart-items').innerHTML = itemsHtml;
+
+    drawer.querySelector('.bynox-cart-total-price').innerHTML =
+      `$${(cart.total_price / 100).toFixed(2)}`;
+
+    drawer.classList.add('active');
+
+  });
+
+});
+</script>
+   <script>
+window.bynoxIncreaseQty = function() {
 
   const input = document.getElementById('bynoxQtyInput');
 
@@ -115,7 +176,7 @@ function bynoxIncreaseQty() {
 
 }
 
-function bynoxDecreaseQty() {
+window.bynoxDecreaseQty = function() {
 
   const input = document.getElementById('bynoxQtyInput');
 
@@ -124,7 +185,37 @@ function bynoxDecreaseQty() {
   }
 
 }
-.bynox-quantity-wrapper {
+
+}
+</script>
+   {% endform %}
+
+        <div class="bynox-product-trust">
+
+          <div class="bynox-product-trust-item">
+            ✓ Compra segura
+          </div>
+
+          <div class="bynox-product-trust-item">
+            ✓ Envío rápido
+          </div>
+
+          <div class="bynox-product-trust-item">
+            ✓ Garantía premium
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+  .bynox-quantity-wrapper {
   display: flex !important;
   align-items: center !important;
 
@@ -194,34 +285,6 @@ function bynoxDecreaseQty() {
   -webkit-appearance: none !important;
   margin: 0 !important;
 }
-</script>
-   {% endform %}
-
-        <div class="bynox-product-trust">
-
-          <div class="bynox-product-trust-item">
-            ✓ Compra segura
-          </div>
-
-          <div class="bynox-product-trust-item">
-            ✓ Envío rápido
-          </div>
-
-          <div class="bynox-product-trust-item">
-            ✓ Garantía premium
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<style>
 .bynox-product-template {
   padding: 100px 0 !important;
 }
@@ -229,7 +292,7 @@ function bynoxDecreaseQty() {
 .bynox-product-grid {
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
-  gap: 70px !important;
+  gap: 52px !important;
   align-items: start !important;
 }
 
@@ -254,7 +317,7 @@ function bynoxDecreaseQty() {
 
   border: 1px solid rgba(255,255,255,.08) !important;
 
-  min-height: 720px !important;
+  min-height: 640px !important;
 
   display: flex !important;
   align-items: center !important;
@@ -303,13 +366,7 @@ function bynoxDecreaseQty() {
 
 .bynox-product-thumb {
   cursor: pointer !important;
-  transition:
-  transform .25s ease,
-  border-color .25s ease !important;
-  .bynox-product-thumb:hover {
-  transform: translateY(-4px) !important;
-  border-color: rgba(0,212,255,.24) !important;
-}
+
   overflow: hidden !important;
 
   border-radius: 20px !important;
@@ -324,6 +381,16 @@ function bynoxDecreaseQty() {
   border: 1px solid rgba(255,255,255,.08) !important;
 
   min-height: 130px !important;
+
+  transition:
+    transform .25s ease,
+    border-color .25s ease !important;
+}
+
+.bynox-product-thumb:hover {
+  transform: translateY(-4px) !important;
+
+  border-color: rgba(0,212,255,.24) !important;
 }
 
 .bynox-product-thumb img {
@@ -351,15 +418,18 @@ function bynoxDecreaseQty() {
 }
 
 .bynox-product-info h1 {
-  font-size: clamp(48px,5vw,82px) !important;
+  font-size: clamp(38px,4vw,58px) !important;
 
-  line-height: .95 !important;
+  line-height: 1.02 !important;
+
+  letter-spacing: -2px !important;
 
   color: var(--bynox-white) !important;
 
-  margin-bottom: 26px !important;
-}
+  margin-bottom: 18px !important;
 
+  max-width: 620px !important;
+}
 .bynox-product-price {
   font-size: 42px !important;
 
@@ -373,11 +443,13 @@ function bynoxDecreaseQty() {
 .bynox-product-description {
   color: rgba(245,247,250,.72) !important;
 
-  line-height: 1.9 !important;
+  line-height: 1.7 !important;
 
-  font-size: 18px !important;
+  font-size: 17px !important;
 
-  margin-bottom: 40px !important;
+  max-width: 560px !important;
+
+  margin-bottom: 34px !important;
 }
 
 .bynox-product-button {
@@ -485,6 +557,69 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const productForm = document.querySelector('form[action="/cart/add"]');
+
+  if (!productForm) return;
+
+  productForm.addEventListener('submit', async (e) => {
+
+    e.preventDefault();
+
+    const formData = new FormData(productForm);
+
+    await fetch('/cart/add.js', {
+      method: 'POST',
+      body: formData
+    });
+
+    const cartResponse = await fetch('/cart.js');
+
+    const cart = await cartResponse.json();
+
+    const drawer = document.getElementById('bynoxCartDrawer');
+
+    if (!drawer) return;
+
+    let itemsHtml = '';
+
+    cart.items.forEach(item => {
+
+      itemsHtml += `
+        <div class="bynox-cart-item">
+
+          <img
+            src="${item.image}"
+            alt="${item.product_title}"
+          >
+
+          <div class="bynox-cart-item-info">
+
+            <h4>${item.product_title}</h4>
+
+            <p>$${(item.final_line_price / 100).toFixed(2)}</p>
+
+          </div>
+
+        </div>
+      `;
+
+    });
+
+    drawer.querySelector('.bynox-cart-items').innerHTML = itemsHtml;
+
+    drawer.querySelector('.bynox-cart-total-price').innerHTML =
+      `$${(cart.total_price / 100).toFixed(2)}`;
+
+    drawer.classList.add('active');
+
+  });
+
+});
+</script>
+
 
 {% schema %}
 {
