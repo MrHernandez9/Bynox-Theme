@@ -209,3 +209,26 @@ window.bynoxRemoveItem = async function(itemKey) {
   }
 
 }
+window.bynoxIncreaseQty = function() {
+
+  const input = document.getElementById('bynoxQtyInput');
+
+  if (!input) return;
+
+  input.value = parseInt(input.value || 1) + 1;
+
+}
+
+window.bynoxDecreaseQty = function() {
+
+  const input = document.getElementById('bynoxQtyInput');
+
+  if (!input) return;
+
+  const current = parseInt(input.value || 1);
+
+  if (current > 1) {
+    input.value = current - 1;
+  }
+
+}
