@@ -71,7 +71,7 @@ if (!cartContent) return;
       <div class="bynox-cart-qty-controls">
 
         <button
-          onclick="bynoxUpdateQuantity(${item.variant_id}, ${item.quantity - 1})"
+          onclick="bynoxUpdateQuantity('${item.key}', ${item.quantity - 1})"
         >
           −
         </button>
@@ -79,7 +79,7 @@ if (!cartContent) return;
         <span>${item.quantity}</span>
 
         <button
-          onclick="bynoxUpdateQuantity(${item.variant_id}, ${item.quantity + 1})"
+          onclick="bynoxUpdateQuantity('${item.key}', ${item.quantity + 1})"
         >
           +
         </button>
@@ -88,7 +88,7 @@ if (!cartContent) return;
 
       <button
         class="bynox-remove-item"
-        onclick="bynoxRemoveItem(${item.variant_id})"
+        onclick="bynoxRemoveItem('${item.key}')"
       >
         Eliminar
       </button>
@@ -155,41 +155,57 @@ productForms.forEach((form) => {
 
 });
 
-window.bynoxUpdateQuantity = async function(variantId, quantity) {
+window.bynoxUpdateQuantity = async function(itemKey, quantity) {
 
   if (quantity < 1) {
-    bynoxRemoveItem(variantId);
+    await bynoxRemoveItem(itemKey);
     return;
   }
 
-  await fetch('/cart/change.js', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      id: variantId,
-      quantity
-    })
-  });
+  try {
 
-  location.reload();
+    await fetch('/cart/change.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: itemKey,
+        quantity: quantity
+      })
+    });
+
+    await updateCartDrawer();
+
+  } catch(error) {
+
+    console.error(error);
+
+  }
 
 }
 
-window.bynoxRemoveItem = async function(variantId) {
+window.bynoxRemoveItem = async function(itemKey) {
 
-  await fetch('/cart/change.js', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      id: variantId,
-      quantity: 0
-    })
-  });
+  try {
 
-  location.reload();
+    await fetch('/cart/change.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: itemKey,
+        quantity: 0
+      })
+    });
+
+    await updateCartDrawer();
+
+  } catch(error) {
+
+    console.error(error);
+
+  }
 
 }

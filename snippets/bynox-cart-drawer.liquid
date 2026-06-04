@@ -13,7 +13,7 @@
   </div>
 
   <div id="bynoxCartContent">
-
+   <div class="bynox-cart-items">
     {% if cart.item_count > 0 %}
 
       {% for item in cart.items %}
@@ -79,13 +79,17 @@
     {% endif %}
 
   </div>
-
+</div>
   <div class="bynox-cart-footer">
 
     <div class="bynox-cart-total">
-      Total:
-      <span>{{ cart.total_price | money }}</span>
-    </div>
+  Total:
+
+  <span class="bynox-cart-total-price">
+    {{ cart.total_price | money }}
+  </span>
+
+</div>
 
     <a
       href="{{ routes.cart_url }}"
