@@ -31,11 +31,13 @@ window.openCartDrawer = function() {
 
       const cart = await response.json();
 
-      const cartContent = document.getElementById('bynoxCartContent');
+const cartContent =
+  document.getElementById('bynoxCartContent');
 
-      const cartTotal = document.querySelector('.bynox-cart-total span');
+const cartTotal =
+  document.querySelector('.bynox-cart-total span');
 
-      if (!cartContent) return;
+if (!cartContent) return;
 
       if (cart.item_count === 0) {
 
