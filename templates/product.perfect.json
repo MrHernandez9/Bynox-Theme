@@ -1,0 +1,141 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "bynox_perfect_product_page": {
+      "type": "bynox-perfect-product-page",
+      "blocks": {
+        "accordion_1": {
+          "type": "accordion",
+          "settings": {
+            "title": "Guía de tallas",
+            "content": "<p>Consulta nuestra guía de tallas para encontrar el ajuste perfecto para tu cuerpo.</p>"
+          }
+        },
+        "accordion_2": {
+          "type": "accordion",
+          "settings": {
+            "title": "Envío y entrega",
+            "content": "<p>Procesamos tu pedido en 24–48 h. El envío estándar tarda 2–4 días hábiles. Envío express disponible al finalizar la compra.</p>"
+          }
+        },
+        "accordion_3": {
+          "type": "accordion",
+          "settings": {
+            "title": "Devoluciones y garantía",
+            "content": "<p>Tienes 30 días para devolver el producto sin preguntas. Simplemente contáctanos y gestionamos todo.</p>"
+          }
+        },
+        "accordion_4": {
+          "type": "accordion",
+          "settings": {
+            "title": "Preguntas frecuentes",
+            "content": "<p><strong>¿Puedo usarlo todos los días?</strong> Sí, está diseñado para uso diario.</p><p><strong>¿Es ajustable?</strong> Sí, incluye correas ajustables para todo tipo de cuerpo.</p>"
+          }
+        },
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "review": "Lo recibí en 3 días y la calidad es impresionante. Definitivamente volvería a comprar.",
+            "name": "Carlos M.",
+            "verified": true
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "review": "Exactamente como se ve en las fotos. El material es de primera y el tamaño perfecto.",
+            "name": "Sofía R.",
+            "verified": true
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "review": "Servicio al cliente increíble. Tuve una duda y la resolvieron en minutos.",
+            "name": "Andrés P.",
+            "verified": true
+          }
+        },
+        "usp_1": {
+          "type": "company_usp",
+          "settings": {
+            "icon": "💬",
+            "title": "Soporte al cliente",
+            "text": "Atención 24/7 por chat, email y WhatsApp."
+          }
+        },
+        "usp_2": {
+          "type": "company_usp",
+          "settings": {
+            "icon": "🏆",
+            "title": "Diferenciador de producto",
+            "text": "Diseñado exclusivamente con materiales de grado premium."
+          }
+        },
+        "usp_3": {
+          "type": "company_usp",
+          "settings": {
+            "icon": "🚚",
+            "title": "Entrega rápida",
+            "text": "Envío express disponible. Llega en 1–2 días hábiles."
+          }
+        },
+        "usp_4": {
+          "type": "company_usp",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Garantía 12 meses",
+            "text": "Cobertura total ante defectos de fabricación durante un año."
+          }
+        }
+      },
+      "block_order": [
+        "accordion_1",
+        "accordion_2",
+        "accordion_3",
+        "accordion_4",
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3",
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "product_tag": "Best Seller",
+        "image_badge": "Best Seller",
+        "label_badge": "Limited Edition",
+        "video_url": "",
+        "star_rating": 5,
+        "review_count": "4.9 · 2,341 reseñas",
+        "featured_review": "Este producto cambió mi vida. Increíble calidad y resultados reales desde la primera semana.",
+        "bnpl_text": "O 4 cuotas sin interés con Klarna",
+        "buy_button_text": "Comprar ahora",
+        "guarantee_text": "Garantía de devolución 30 días sin preguntas",
+        "shipping_text": "Envío gratis en pedidos +$50 · Entrega en 2–4 días",
+        "usp1_icon": "⭐",
+        "usp1_text": "Más de 10,000 clientes satisfechos",
+        "usp2_icon": "🏆",
+        "usp2_text": "Calidad premium — Fabricado para durar",
+        "product_promise": "El producto que resuelve tu problema. Para siempre.",
+        "reviews_heading": "Lo que dicen nuestros clientes",
+        "company_usps_heading": "¿Por qué elegirnos?",
+        "show_related": true,
+        "related_heading": "También te puede gustar",
+        "related_collection": ""
+      }
+    }
+  },
+  "order": [
+    "bynox_perfect_product_page"
+  ]
+}

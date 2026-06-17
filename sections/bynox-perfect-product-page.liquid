@@ -1,0 +1,1454 @@
+<section class="bynox-ppp">
+  <div class="bynox-container">
+
+    <!-- ===== HERO (Above the fold) ===== -->
+    <div class="bynox-ppp-hero">
+
+      <!-- GALLERY -->
+      <div class="bynox-ppp-gallery">
+
+        {% if section.settings.product_tag != blank %}
+          <div class="bynox-ppp-tag">{{ section.settings.product_tag }}</div>
+        {% endif %}
+
+        <div class="bynox-ppp-main-img" id="bynoxPppImgWrap">
+          {% if product.featured_image %}
+            <img
+              id="bynoxPppMainImg"
+              src="{{ product.featured_image | image_url: width: 1400 }}"
+              alt="{{ product.title | escape }}"
+              width="1400"
+              height="1400"
+              loading="eager"
+            >
+          {% endif %}
+          {% if section.settings.image_badge != blank %}
+            <div class="bynox-ppp-img-badge">{{ section.settings.image_badge }}</div>
+          {% endif %}
+        </div>
+
+        {% if product.images.size > 1 %}
+          <div class="bynox-ppp-thumbs">
+            {% for image in product.images limit: 6 %}
+              <div class="bynox-ppp-thumb{% if forloop.first %} active{% endif %}"
+                data-img="{{ image | image_url: width: 1400 }}">
+                <img
+                  src="{{ image | image_url: width: 300 }}"
+                  alt="{{ product.title | escape }}"
+                  width="300"
+                  height="300"
+                  loading="lazy"
+                >
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.video_url != blank %}
+          <div class="bynox-ppp-video">
+            <iframe
+              src="{{ section.settings.video_url }}"
+              frameborder="0"
+              allowfullscreen
+              loading="lazy"
+              title="{{ product.title | escape }} video"
+            ></iframe>
+          </div>
+        {% endif %}
+
+      </div>
+
+      <!-- PRODUCT INFO -->
+      <div class="bynox-ppp-info">
+
+        {% if section.settings.label_badge != blank %}
+          <span class="bynox-ppp-label">{{ section.settings.label_badge }}</span>
+        {% endif %}
+
+        <h1 class="bynox-ppp-title">{{ product.title }}</h1>
+
+        <!-- Star Rating -->
+        <div class="bynox-ppp-stars">
+          <div class="bynox-ppp-star-row">
+            {% assign rating = section.settings.star_rating %}
+            {% for i in (1..5) %}
+              <span class="bynox-ppp-star{% if i <= rating %} filled{% endif %}">★</span>
+            {% endfor %}
+          </div>
+          {% if section.settings.review_count != blank %}
+            <span class="bynox-ppp-rating-count">{{ section.settings.review_count }}</span>
+          {% endif %}
+        </div>
+
+        {% if section.settings.featured_review != blank %}
+          <blockquote class="bynox-ppp-featured-review">
+            "{{ section.settings.featured_review }}"
+          </blockquote>
+        {% endif %}
+
+        <!-- Variant Options -->
+        {% unless product.has_only_default_variant %}
+          <div class="bynox-ppp-options" id="bynoxPppOptions">
+            {% for option in product.options_with_values %}
+              <div class="bynox-ppp-option-group">
+                <div class="bynox-ppp-option-header">
+                  <span class="bynox-ppp-option-name">{{ option.name }}:</span>
+                  <span class="bynox-ppp-option-selected" id="bynoxSelected{{ option.position }}">
+                    {{ option.selected_value }}
+                  </span>
+                  {% if option.name == 'Size' or option.name == 'Talla' or option.name == 'Tamaño' %}
+                    {% if section.settings.size_guide_url != blank %}
+                      <a href="{{ section.settings.size_guide_url }}" class="bynox-ppp-size-guide"
+                        target="_blank">Guía de tallas</a>
+                    {% endif %}
+                  {% endif %}
+                </div>
+                <div class="bynox-ppp-option-btns">
+                  {% for value in option.values %}
+                    <button
+                      type="button"
+                      class="bynox-ppp-opt-btn{% if option.selected_value == value %} active{% endif %}"
+                      data-option-pos="{{ option.position }}"
+                      data-value="{{ value | escape }}"
+                    >{{ value }}</button>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endunless %}
+
+        <!-- Price Block -->
+        <div class="bynox-ppp-price-block">
+          {% if product.compare_at_price > product.price %}
+            <span class="bynox-ppp-price">{{ product.price | money }}</span>
+            <span class="bynox-ppp-compare-price">{{ product.compare_at_price | money }}</span>
+            <span class="bynox-ppp-save-badge">
+              Ahorra {{ product.compare_at_price | minus: product.price | money }}
+            </span>
+          {% else %}
+            <span class="bynox-ppp-price">{{ product.price | money }}</span>
+          {% endif %}
+          {% if section.settings.bnpl_text != blank %}
+            <p class="bynox-ppp-bnpl">{{ section.settings.bnpl_text }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Add to Cart Form -->
+        {% form 'product', product, id: 'bynoxPppForm', novalidate: 'novalidate' %}
+          <input type="hidden" name="id" id="bynoxPppVariantId"
+            value="{{ product.selected_or_first_available_variant.id }}">
+
+          <div class="bynox-ppp-qty-row">
+            <label class="bynox-ppp-qty-label" for="bynoxPppQty">Cantidad</label>
+            <select id="bynoxPppQty" name="quantity" class="bynox-ppp-qty-select">
+              {% for i in (1..10) %}
+                <option value="{{ i }}">{{ i }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <button type="submit" class="bynox-ppp-buy-btn" id="bynoxPppBuyBtn">
+            {{ section.settings.buy_button_text | default: 'Comprar ahora' }}
+          </button>
+        {% endform %}
+
+        <!-- Objection Busters Strip -->
+        <div class="bynox-ppp-obj-strip">
+          {% if section.settings.guarantee_text != blank %}
+            <div class="bynox-ppp-obj-item">
+              <span class="bynox-ppp-obj-icon">🛡️</span>
+              <span>{{ section.settings.guarantee_text }}</span>
+            </div>
+          {% endif %}
+          {% if section.settings.shipping_text != blank %}
+            <div class="bynox-ppp-obj-item">
+              <span class="bynox-ppp-obj-icon">🚚</span>
+              <span>{{ section.settings.shipping_text }}</span>
+            </div>
+          {% endif %}
+          {% if section.settings.usp1_text != blank %}
+            <div class="bynox-ppp-obj-item">
+              <span class="bynox-ppp-obj-icon">{{ section.settings.usp1_icon | default: '✓' }}</span>
+              <span>{{ section.settings.usp1_text }}</span>
+            </div>
+          {% endif %}
+          {% if section.settings.usp2_text != blank %}
+            <div class="bynox-ppp-obj-item">
+              <span class="bynox-ppp-obj-icon">{{ section.settings.usp2_icon | default: '✓' }}</span>
+              <span>{{ section.settings.usp2_text }}</span>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== PRODUCT DESCRIPTION ===== -->
+    <div class="bynox-ppp-desc-section">
+      {% if section.settings.product_promise != blank %}
+        <h2 class="bynox-ppp-promise">{{ section.settings.product_promise }}</h2>
+      {% endif %}
+      <div class="bynox-ppp-desc-body">
+        {{ product.description }}
+      </div>
+    </div>
+
+    <!-- ===== ACCORDION TABS ===== -->
+    {% assign accordion_blocks = section.blocks | where: 'type', 'accordion' %}
+    {% if accordion_blocks.size > 0 %}
+      <div class="bynox-ppp-accordions">
+        {% for block in section.blocks %}
+          {% if block.type == 'accordion' %}
+            <details class="bynox-ppp-accordion" {{ block.shopify_attributes }}>
+              <summary class="bynox-ppp-acc-summary">
+                <span>{{ block.settings.title }}</span>
+                <span class="bynox-ppp-acc-icon">+</span>
+              </summary>
+              <div class="bynox-ppp-acc-body">
+                {{ block.settings.content }}
+              </div>
+            </details>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- ===== SOCIAL PROOF / REVIEWS ===== -->
+    {% assign testimonial_blocks = section.blocks | where: 'type', 'testimonial' %}
+    {% if testimonial_blocks.size > 0 %}
+      <div class="bynox-ppp-reviews-section">
+        <h2 class="bynox-ppp-section-title">
+          {{ section.settings.reviews_heading | default: 'Lo que dicen nuestros clientes' }}
+        </h2>
+        <div class="bynox-ppp-reviews-grid">
+          {% for block in section.blocks %}
+            {% if block.type == 'testimonial' %}
+              <div class="bynox-ppp-review-card" {{ block.shopify_attributes }}>
+                <div class="bynox-ppp-rev-stars">★★★★★</div>
+                <p class="bynox-ppp-rev-text">"{{ block.settings.review }}"</p>
+                <div class="bynox-ppp-rev-author">
+                  <strong>{{ block.settings.name }}</strong>
+                  {% if block.settings.verified %}
+                    <span class="bynox-ppp-verified">✓ Compra verificada</span>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- ===== COMPANY OBJECTION BUSTERS (4 USPs) ===== -->
+    {% assign usp_blocks = section.blocks | where: 'type', 'company_usp' %}
+    {% if usp_blocks.size > 0 %}
+      <div class="bynox-ppp-company-usps">
+        <h2 class="bynox-ppp-section-title">
+          {{ section.settings.company_usps_heading | default: '¿Por qué elegirnos?' }}
+        </h2>
+        <div class="bynox-ppp-usps-grid">
+          {% for block in section.blocks %}
+            {% if block.type == 'company_usp' %}
+              <div class="bynox-ppp-usp-card" {{ block.shopify_attributes }}>
+                <div class="bynox-ppp-usp-icon">{{ block.settings.icon }}</div>
+                <h3 class="bynox-ppp-usp-title">{{ block.settings.title }}</h3>
+                <p class="bynox-ppp-usp-text">{{ block.settings.text }}</p>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- ===== RELATED PRODUCTS ===== -->
+    {% if section.settings.show_related %}
+      {% assign related_col = collections[section.settings.related_collection] %}
+      {% if related_col and related_col.products.size > 0 %}
+        <div class="bynox-ppp-related">
+          <h2 class="bynox-ppp-section-title">
+            {{ section.settings.related_heading | default: 'También te puede gustar' }}
+          </h2>
+          <div class="bynox-ppp-related-grid">
+            {% assign count = 0 %}
+            {% for rp in related_col.products %}
+              {% if rp.id != product.id and count < 4 %}
+                {% assign count = count | plus: 1 %}
+                <a href="{{ rp.url }}" class="bynox-ppp-related-card">
+                  {% if rp.featured_image %}
+                    <div class="bynox-ppp-rel-img">
+                      <img
+                        src="{{ rp.featured_image | image_url: width: 600 }}"
+                        alt="{{ rp.title | escape }}"
+                        width="600"
+                        height="600"
+                        loading="lazy"
+                      >
+                    </div>
+                  {% endif %}
+                  <div class="bynox-ppp-rel-info">
+                    <p class="bynox-ppp-rel-title">{{ rp.title }}</p>
+                    <p class="bynox-ppp-rel-price">{{ rp.price | money }}</p>
+                  </div>
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- ===== STYLES ===== -->
+<style>
+/* ---------- Layout ---------- */
+.bynox-ppp {
+  padding: 80px 0 120px !important;
+}
+
+.bynox-ppp-hero {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 60px !important;
+  align-items: start !important;
+  margin-bottom: 80px !important;
+}
+
+/* ---------- Gallery ---------- */
+.bynox-ppp-gallery {
+  position: sticky !important;
+  top: 110px !important;
+}
+
+.bynox-ppp-tag {
+  display: inline-flex !important;
+  padding: 8px 16px !important;
+  border-radius: 999px !important;
+  background: rgba(0,212,255,.12) !important;
+  border: 1px solid rgba(0,212,255,.3) !important;
+  color: var(--bynox-cyan) !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 14px !important;
+}
+
+.bynox-ppp-main-img {
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 32px !important;
+  background: linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03)) !important;
+  border: 1px solid rgba(255,255,255,.09) !important;
+  min-height: 580px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.bynox-ppp-main-img::before {
+  content: '' !important;
+  position: absolute !important;
+  width: 380px !important;
+  height: 380px !important;
+  border-radius: 50% !important;
+  background: rgba(0,212,255,.12) !important;
+  filter: blur(90px) !important;
+  pointer-events: none !important;
+}
+
+.bynox-ppp-main-img img {
+  position: relative !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  max-width: 85% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  transition: opacity .22s ease, transform .3s ease !important;
+}
+
+.bynox-ppp-img-badge {
+  position: absolute !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 5 !important;
+  padding: 8px 18px !important;
+  border-radius: 8px !important;
+  background: var(--bynox-cyan, #00d4ff) !important;
+  color: #000 !important;
+  font-weight: 900 !important;
+  font-size: 13px !important;
+  letter-spacing: .04em !important;
+}
+
+.bynox-ppp-thumbs {
+  display: grid !important;
+  grid-template-columns: repeat(6, 1fr) !important;
+  gap: 10px !important;
+  margin-top: 14px !important;
+}
+
+.bynox-ppp-thumb {
+  cursor: pointer !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+  background: linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03)) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  aspect-ratio: 1 !important;
+  transition: border-color .22s ease, transform .22s ease !important;
+}
+
+.bynox-ppp-thumb.active,
+.bynox-ppp-thumb:hover {
+  border-color: rgba(0,212,255,.4) !important;
+  transform: translateY(-3px) !important;
+}
+
+.bynox-ppp-thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.bynox-ppp-video {
+  margin-top: 14px !important;
+  border-radius: 22px !important;
+  overflow: hidden !important;
+  aspect-ratio: 16/9 !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.bynox-ppp-video iframe {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+/* ---------- Product Info ---------- */
+.bynox-ppp-label {
+  display: inline-flex !important;
+  padding: 9px 18px !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.06) !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  color: rgba(245,247,250,.9) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  font-style: italic !important;
+  margin-bottom: 18px !important;
+}
+
+.bynox-ppp-title {
+  font-size: clamp(32px, 3.6vw, 52px) !important;
+  line-height: 1.06 !important;
+  letter-spacing: -1.5px !important;
+  color: var(--bynox-white) !important;
+  margin: 0 0 18px !important;
+}
+
+/* ---------- Stars ---------- */
+.bynox-ppp-stars {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-bottom: 16px !important;
+}
+
+.bynox-ppp-star-row {
+  display: flex !important;
+  gap: 2px !important;
+}
+
+.bynox-ppp-star {
+  font-size: 20px !important;
+  color: rgba(255,255,255,.2) !important;
+  line-height: 1 !important;
+}
+
+.bynox-ppp-star.filled {
+  color: #f5a623 !important;
+}
+
+.bynox-ppp-rating-count {
+  color: rgba(245,247,250,.6) !important;
+  font-size: 14px !important;
+}
+
+.bynox-ppp-featured-review {
+  font-style: italic !important;
+  color: rgba(245,247,250,.72) !important;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  border-left: 3px solid rgba(0,212,255,.4) !important;
+  padding-left: 16px !important;
+  margin: 0 0 24px !important;
+}
+
+/* ---------- Variant Options ---------- */
+.bynox-ppp-options {
+  margin-bottom: 28px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+}
+
+.bynox-ppp-option-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 10px !important;
+}
+
+.bynox-ppp-option-name {
+  color: rgba(245,247,250,.7) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .06em !important;
+}
+
+.bynox-ppp-option-selected {
+  color: var(--bynox-white) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+.bynox-ppp-size-guide {
+  margin-left: auto !important;
+  color: var(--bynox-cyan) !important;
+  font-size: 13px !important;
+  text-decoration: underline !important;
+}
+
+.bynox-ppp-option-btns {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+
+.bynox-ppp-opt-btn {
+  min-width: 48px !important;
+  padding: 10px 18px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  background: rgba(255,255,255,.04) !important;
+  color: rgba(245,247,250,.8) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: border-color .2s ease, background .2s ease, color .2s ease !important;
+}
+
+.bynox-ppp-opt-btn:hover {
+  border-color: rgba(0,212,255,.3) !important;
+  color: var(--bynox-white) !important;
+}
+
+.bynox-ppp-opt-btn.active {
+  border-color: var(--bynox-cyan, #00d4ff) !important;
+  background: rgba(0,212,255,.12) !important;
+  color: var(--bynox-cyan, #00d4ff) !important;
+}
+
+/* ---------- Price ---------- */
+.bynox-ppp-price-block {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin-bottom: 28px !important;
+}
+
+.bynox-ppp-price {
+  font-size: 42px !important;
+  font-weight: 900 !important;
+  color: var(--bynox-cyan, #00d4ff) !important;
+  line-height: 1 !important;
+}
+
+.bynox-ppp-compare-price {
+  font-size: 24px !important;
+  font-weight: 500 !important;
+  color: rgba(245,247,250,.4) !important;
+  text-decoration: line-through !important;
+}
+
+.bynox-ppp-save-badge {
+  padding: 6px 14px !important;
+  border-radius: 999px !important;
+  background: rgba(34,197,94,.12) !important;
+  border: 1px solid rgba(34,197,94,.25) !important;
+  color: #4ade80 !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+}
+
+.bynox-ppp-bnpl {
+  width: 100% !important;
+  margin: 0 !important;
+  font-size: 14px !important;
+  color: rgba(245,247,250,.55) !important;
+}
+
+/* ---------- Quantity + Buy ---------- */
+.bynox-ppp-qty-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+.bynox-ppp-qty-label {
+  color: rgba(245,247,250,.7) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .06em !important;
+}
+
+.bynox-ppp-qty-select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  padding: 12px 40px 12px 18px !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  background: rgba(255,255,255,.06) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300d4ff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center !important;
+  color: var(--bynox-white) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  min-width: 90px !important;
+}
+
+.bynox-ppp-buy-btn {
+  width: 100% !important;
+  min-height: 68px !important;
+  border-radius: 18px !important;
+  border: none !important;
+  background: linear-gradient(135deg, #00d4ff, #2563eb) !important;
+  color: #fff !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  letter-spacing: .04em !important;
+  cursor: pointer !important;
+  transition: opacity .22s ease, transform .22s ease, box-shadow .22s ease !important;
+  box-shadow: 0 8px 32px rgba(0,212,255,.25) !important;
+  margin-bottom: 24px !important;
+}
+
+.bynox-ppp-buy-btn:hover {
+  opacity: .92 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 14px 42px rgba(0,212,255,.35) !important;
+}
+
+/* ---------- Objection Busters ---------- */
+.bynox-ppp-obj-strip {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.bynox-ppp-obj-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  padding: 16px 20px !important;
+  border-radius: 16px !important;
+  background: linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03)) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  color: rgba(245,247,250,.82) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.bynox-ppp-obj-icon {
+  font-size: 22px !important;
+  flex-shrink: 0 !important;
+}
+
+/* ---------- Product Description ---------- */
+.bynox-ppp-desc-section {
+  padding: 60px 0 !important;
+  border-top: 1px solid rgba(255,255,255,.07) !important;
+  border-bottom: 1px solid rgba(255,255,255,.07) !important;
+  margin-bottom: 60px !important;
+}
+
+.bynox-ppp-promise {
+  font-size: clamp(28px, 3vw, 44px) !important;
+  line-height: 1.1 !important;
+  letter-spacing: -1px !important;
+  color: var(--bynox-white) !important;
+  margin: 0 0 28px !important;
+  max-width: 700px !important;
+}
+
+.bynox-ppp-desc-body {
+  color: rgba(245,247,250,.75) !important;
+  font-size: 17px !important;
+  line-height: 1.8 !important;
+  max-width: 760px !important;
+}
+
+.bynox-ppp-desc-body ul,
+.bynox-ppp-desc-body ol {
+  padding-left: 22px !important;
+  margin: 14px 0 !important;
+}
+
+.bynox-ppp-desc-body li {
+  margin-bottom: 8px !important;
+}
+
+/* ---------- Accordion Tabs ---------- */
+.bynox-ppp-accordions {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  margin-bottom: 80px !important;
+}
+
+.bynox-ppp-accordion {
+  border-radius: 20px !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  background: linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03)) !important;
+  overflow: hidden !important;
+}
+
+.bynox-ppp-acc-summary {
+  cursor: pointer !important;
+  list-style: none !important;
+  padding: 22px 26px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 16px !important;
+  color: var(--bynox-white) !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+}
+
+.bynox-ppp-acc-summary::-webkit-details-marker { display: none !important; }
+
+.bynox-ppp-acc-icon {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--bynox-cyan, #00d4ff) !important;
+  border: 1px solid rgba(0,212,255,.22) !important;
+  font-size: 20px !important;
+  flex-shrink: 0 !important;
+  transition: transform .22s ease !important;
+}
+
+.bynox-ppp-accordion[open] .bynox-ppp-acc-icon {
+  transform: rotate(45deg) !important;
+}
+
+.bynox-ppp-acc-body {
+  padding: 0 26px 24px !important;
+  color: rgba(245,247,250,.72) !important;
+  font-size: 15px !important;
+  line-height: 1.8 !important;
+}
+
+/* ---------- Section Title ---------- */
+.bynox-ppp-section-title {
+  font-size: clamp(30px, 3vw, 48px) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -1px !important;
+  color: var(--bynox-white) !important;
+  margin: 0 0 40px !important;
+  text-align: center !important;
+}
+
+/* ---------- Reviews ---------- */
+.bynox-ppp-reviews-section {
+  margin-bottom: 80px !important;
+}
+
+.bynox-ppp-reviews-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+}
+
+.bynox-ppp-review-card {
+  padding: 28px !important;
+  border-radius: 24px !important;
+  background: linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03)) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+}
+
+.bynox-ppp-rev-stars {
+  color: #f5a623 !important;
+  font-size: 18px !important;
+  letter-spacing: 2px !important;
+}
+
+.bynox-ppp-rev-text {
+  color: rgba(245,247,250,.82) !important;
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+  margin: 0 !important;
+  flex: 1 !important;
+  font-style: italic !important;
+}
+
+.bynox-ppp-rev-author {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+.bynox-ppp-rev-author strong {
+  color: var(--bynox-white) !important;
+  font-size: 14px !important;
+}
+
+.bynox-ppp-verified {
+  color: #4ade80 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* ---------- Company USPs ---------- */
+.bynox-ppp-company-usps {
+  margin-bottom: 80px !important;
+}
+
+.bynox-ppp-usps-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 20px !important;
+}
+
+.bynox-ppp-usp-card {
+  padding: 30px 24px !important;
+  border-radius: 24px !important;
+  background: linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03)) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  text-align: center !important;
+  transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease !important;
+}
+
+.bynox-ppp-usp-card:hover {
+  transform: translateY(-6px) !important;
+  border-color: rgba(0,212,255,.2) !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,.3), 0 0 30px rgba(0,212,255,.06) !important;
+}
+
+.bynox-ppp-usp-icon {
+  font-size: 36px !important;
+  margin-bottom: 16px !important;
+  display: block !important;
+}
+
+.bynox-ppp-usp-title {
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  color: var(--bynox-white) !important;
+  margin: 0 0 10px !important;
+}
+
+.bynox-ppp-usp-text {
+  color: rgba(245,247,250,.68) !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+}
+
+/* ---------- Related Products ---------- */
+.bynox-ppp-related {
+  margin-bottom: 40px !important;
+}
+
+.bynox-ppp-related-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 20px !important;
+}
+
+.bynox-ppp-related-card {
+  text-decoration: none !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+  background: linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03)) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  transition: transform .28s ease, border-color .28s ease !important;
+  display: block !important;
+}
+
+.bynox-ppp-related-card:hover {
+  transform: translateY(-6px) !important;
+  border-color: rgba(0,212,255,.22) !important;
+}
+
+.bynox-ppp-rel-img {
+  aspect-ratio: 1 !important;
+  overflow: hidden !important;
+}
+
+.bynox-ppp-rel-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform .35s ease !important;
+}
+
+.bynox-ppp-related-card:hover .bynox-ppp-rel-img img {
+  transform: scale(1.04) !important;
+}
+
+.bynox-ppp-rel-info {
+  padding: 16px 18px !important;
+}
+
+.bynox-ppp-rel-title {
+  color: var(--bynox-white) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  margin: 0 0 6px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.bynox-ppp-rel-price {
+  color: var(--bynox-cyan, #00d4ff) !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  margin: 0 !important;
+}
+
+/* ---------- Responsive ---------- */
+@media(max-width: 1100px) {
+  .bynox-ppp-usps-grid,
+  .bynox-ppp-related-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .bynox-ppp-reviews-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media(max-width: 900px) {
+  .bynox-ppp-hero {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  .bynox-ppp-gallery {
+    position: relative !important;
+    top: 0 !important;
+  }
+  .bynox-ppp-thumbs {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+@media(max-width: 640px) {
+  .bynox-ppp {
+    padding: 50px 0 80px !important;
+  }
+  .bynox-ppp-main-img {
+    min-height: 360px !important;
+  }
+  .bynox-ppp-thumbs {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .bynox-ppp-price {
+    font-size: 34px !important;
+  }
+  .bynox-ppp-usps-grid,
+  .bynox-ppp-related-grid,
+  .bynox-ppp-reviews-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+(function () {
+
+  /* ----- Thumbnail switcher ----- */
+  var mainImg = document.getElementById('bynoxPppMainImg');
+  var thumbs  = document.querySelectorAll('.bynox-ppp-thumb');
+
+  thumbs.forEach(function (thumb) {
+    thumb.addEventListener('click', function () {
+      var src = thumb.dataset.img;
+      if (!mainImg || !src) return;
+      mainImg.style.opacity = '0';
+      mainImg.style.transform = 'scale(.97)';
+      setTimeout(function () {
+        mainImg.src = src;
+        mainImg.style.opacity = '1';
+        mainImg.style.transform = 'scale(1)';
+      }, 200);
+      thumbs.forEach(function (t) { t.classList.remove('active'); });
+      thumb.classList.add('active');
+    });
+  });
+
+  /* ----- Variant option picker ----- */
+  var optBtns = document.querySelectorAll('.bynox-ppp-opt-btn');
+  var variantInput = document.getElementById('bynoxPppVariantId');
+  var variants = {{ product.variants | json }};
+  var selectedOptions = {};
+
+  // seed with current selection
+  {% for option in product.options_with_values %}
+    selectedOptions[{{ option.position }}] = {{ option.selected_value | json }};
+  {% endfor %}
+
+  function findVariant() {
+    return variants.find(function (v) {
+      return v.options.every(function (val, idx) {
+        return selectedOptions[idx + 1] === val;
+      });
+    });
+  }
+
+  optBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pos = parseInt(btn.dataset.optionPos, 10);
+      var val = btn.dataset.value;
+      selectedOptions[pos] = val;
+
+      // update active state within group
+      document.querySelectorAll('[data-option-pos="' + pos + '"]').forEach(function (b) {
+        b.classList.remove('active');
+      });
+      btn.classList.add('active');
+
+      // update selected label
+      var lbl = document.getElementById('bynoxSelected' + pos);
+      if (lbl) lbl.textContent = val;
+
+      // update hidden variant id
+      var matched = findVariant();
+      if (matched && variantInput) {
+        variantInput.value = matched.id;
+      }
+
+      // swap image if variant has one
+      if (matched && matched.featured_image && mainImg) {
+        mainImg.style.opacity = '0';
+        mainImg.style.transform = 'scale(.97)';
+        setTimeout(function () {
+          mainImg.src = matched.featured_image.src;
+          mainImg.style.opacity = '1';
+          mainImg.style.transform = 'scale(1)';
+        }, 200);
+      }
+    });
+  });
+
+  /* ----- AJAX Add-to-Cart ----- */
+  var form = document.getElementById('bynoxPppForm');
+  var buyBtn = document.getElementById('bynoxPppBuyBtn');
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (buyBtn) {
+        buyBtn.textContent = 'Agregando...';
+        buyBtn.style.opacity = '.7';
+      }
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: new FormData(form)
+      })
+      .then(function (r) { return r.json(); })
+      .then(function () {
+        return fetch('/cart.js');
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (cart) {
+        if (buyBtn) {
+          buyBtn.textContent = '{{ section.settings.buy_button_text | default: "Comprar ahora" | escape }}';
+          buyBtn.style.opacity = '1';
+        }
+        // open cart drawer if it exists in the theme
+        var drawer = document.getElementById('bynoxCartDrawer');
+        if (drawer) {
+          var itemsWrap = drawer.querySelector('.bynox-cart-items');
+          var totalWrap = drawer.querySelector('.bynox-cart-total-price');
+          if (itemsWrap) {
+            itemsWrap.innerHTML = cart.items.map(function (item) {
+              return '<div class="bynox-cart-item"><img src="' + item.image + '" alt="' + item.product_title + '"><div class="bynox-cart-item-info"><h4>' + item.product_title + '</h4><p>$' + (item.final_line_price / 100).toFixed(2) + '</p></div></div>';
+            }).join('');
+          }
+          if (totalWrap) {
+            totalWrap.innerHTML = '$' + (cart.total_price / 100).toFixed(2);
+          }
+          drawer.classList.add('active');
+        }
+      })
+      .catch(function () {
+        if (buyBtn) {
+          buyBtn.textContent = '{{ section.settings.buy_button_text | default: "Comprar ahora" | escape }}';
+          buyBtn.style.opacity = '1';
+        }
+      });
+    });
+  }
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "BYNOX Perfect Product",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Tags & Labels"
+    },
+    {
+      "type": "text",
+      "id": "product_tag",
+      "label": "Product Tag (above image)",
+      "info": "e.g. New!, Best Seller, Limited Edition",
+      "default": "Best Seller"
+    },
+    {
+      "type": "text",
+      "id": "image_badge",
+      "label": "Image Badge (overlay on photo)",
+      "info": "e.g. Best Seller",
+      "default": "Best Seller"
+    },
+    {
+      "type": "text",
+      "id": "label_badge",
+      "label": "Label (above title)",
+      "info": "e.g. Limited Edition",
+      "default": "Limited Edition"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video embed URL (YouTube / Vimeo iframe src)",
+      "info": "Paste the embed src URL, e.g. https://www.youtube.com/embed/VIDEO_ID"
+    },
+    {
+      "type": "header",
+      "content": "Reviews"
+    },
+    {
+      "type": "range",
+      "id": "star_rating",
+      "label": "Star Rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review Count Text",
+      "default": "4.9 · 2,341 reseñas"
+    },
+    {
+      "type": "textarea",
+      "id": "featured_review",
+      "label": "Featured Review Quote",
+      "default": "Este producto cambió mi vida. Increíble calidad y resultados reales desde la primera semana."
+    },
+    {
+      "type": "header",
+      "content": "Pricing & Button"
+    },
+    {
+      "type": "text",
+      "id": "bnpl_text",
+      "label": "Buy Now Pay Later Text (one line)",
+      "info": "e.g. O 4 cuotas sin interés de $24.75",
+      "default": "O 4 cuotas sin interés con Klarna"
+    },
+    {
+      "type": "text",
+      "id": "buy_button_text",
+      "label": "Buy Button Label",
+      "default": "Comprar ahora"
+    },
+    {
+      "type": "header",
+      "content": "Objection Busters"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee / Risk Remover",
+      "default": "Garantía de devolución 30 días sin preguntas"
+    },
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Shipping Message",
+      "default": "Envío gratis en pedidos +$50 · Entrega en 2–4 días"
+    },
+    {
+      "type": "text",
+      "id": "usp1_icon",
+      "label": "USP #1 Icon",
+      "default": "⭐"
+    },
+    {
+      "type": "text",
+      "id": "usp1_text",
+      "label": "USP #1 Text",
+      "default": "Más de 10,000 clientes satisfechos"
+    },
+    {
+      "type": "text",
+      "id": "usp2_icon",
+      "label": "USP #2 Icon",
+      "default": "🏆"
+    },
+    {
+      "type": "text",
+      "id": "usp2_text",
+      "label": "USP #2 Text",
+      "default": "Calidad premium — Fabricado para durar"
+    },
+    {
+      "type": "header",
+      "content": "Product Description"
+    },
+    {
+      "type": "text",
+      "id": "product_promise",
+      "label": "Product Promise Headline",
+      "default": "El producto que resuelve [problema]. Para siempre."
+    },
+    {
+      "type": "header",
+      "content": "Variants"
+    },
+    {
+      "type": "url",
+      "id": "size_guide_url",
+      "label": "Size Guide URL"
+    },
+    {
+      "type": "header",
+      "content": "Social Proof / Reviews Section"
+    },
+    {
+      "type": "text",
+      "id": "reviews_heading",
+      "label": "Reviews Section Heading",
+      "default": "Lo que dicen nuestros clientes"
+    },
+    {
+      "type": "header",
+      "content": "Company USPs"
+    },
+    {
+      "type": "text",
+      "id": "company_usps_heading",
+      "label": "Company USPs Heading",
+      "default": "¿Por qué elegirnos?"
+    },
+    {
+      "type": "header",
+      "content": "Related Products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "Show Related Products",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_heading",
+      "label": "Related Products Heading",
+      "default": "También te puede gustar"
+    },
+    {
+      "type": "collection",
+      "id": "related_collection",
+      "label": "Related Products Collection"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default": "Guía de tallas"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Tab Content",
+          "default": "<p>Consulta nuestra guía de tallas para encontrar el ajuste perfecto.</p>"
+        }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Customer Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "review",
+          "label": "Review Text",
+          "default": "Increíble producto, superó todas mis expectativas. Lo recomiendo 100%."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer Name",
+          "default": "María G."
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Verified Purchase",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "company_usp",
+      "name": "Company USP",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji or SVG)",
+          "default": "💬"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "USP Title",
+          "default": "Soporte 24/7"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "USP Description",
+          "default": "Nuestro equipo está disponible para ayudarte cuando lo necesites."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX Perfect Product",
+      "blocks": [
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Guía de tallas",
+            "content": "<p>Consulta nuestra guía de tallas para encontrar el ajuste perfecto para tu cuerpo.</p>"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Envío y entrega",
+            "content": "<p>Procesamos tu pedido en 24–48 h. El envío estándar tarda 2–4 días hábiles. Envío express disponible al finalizar la compra.</p>"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Devoluciones y garantía",
+            "content": "<p>Tienes 30 días para devolver el producto sin preguntas. Simplemente contáctanos y gestionamos todo.</p>"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "title": "Preguntas frecuentes",
+            "content": "<p><strong>¿Puedo usarlo todos los días?</strong> Sí, está diseñado para uso diario.</p><p><strong>¿Es ajustable?</strong> Sí, incluye correas ajustables para todo tipo de cuerpo.</p>"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "review": "Lo recibí en 3 días y la calidad es impresionante. Definitivamente volvería a comprar.",
+            "name": "Carlos M.",
+            "verified": true
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "review": "Exactamente como se ve en las fotos. El material es de primera y el tamaño perfecto.",
+            "name": "Sofía R.",
+            "verified": true
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "review": "Servicio al cliente increíble. Tuve una duda y la resolvieron en minutos.",
+            "name": "Andrés P.",
+            "verified": true
+          }
+        },
+        {
+          "type": "company_usp",
+          "settings": {
+            "icon": "💬",
+            "title": "Soporte al cliente",
+            "text": "Atención 24/7 por chat, email y WhatsApp."
+          }
+        },
+        {
+          "type": "company_usp",
+          "settings": {
+            "icon": "🏆",
+            "title": "Diferenciador de producto",
+            "text": "Diseñado exclusivamente con materiales de grado premium."
+          }
+        },
+        {
+          "type": "company_usp",
+          "settings": {
+            "icon": "🚚",
+            "title": "Entrega rápida",
+            "text": "Envío express disponible. Llega en 1–2 días hábiles."
+          }
+        },
+        {
+          "type": "company_usp",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Garantía 12 meses",
+            "text": "Cobertura total ante defectos de fabricación durante un año."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
