@@ -1,0 +1,392 @@
+<section class="bynox-lh">
+
+  {% if section.settings.announcement_text != blank %}
+    <div class="bynox-lh-announcement">
+      <a href="{{ section.settings.announcement_url }}" class="bynox-lh-ann-link">
+        {{ section.settings.announcement_text }}
+        <span>→</span>
+      </a>
+    </div>
+  {% endif %}
+
+  {% if section.settings.countdown_text != blank %}
+    <div class="bynox-lh-countdown-bar">
+      {{ section.settings.countdown_text }}
+      {% if section.settings.countdown_days != blank %}
+        <strong class="bynox-lh-countdown-chip">{{ section.settings.countdown_days }}</strong>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="bynox-lh-hero">
+
+    {% if section.settings.bg_image != blank %}
+      <img
+        class="bynox-lh-bg"
+        src="{{ section.settings.bg_image | image_url: width: 2400 }}"
+        alt="{{ section.settings.heading | escape }}"
+        width="2400"
+        height="1350"
+        loading="eager"
+      >
+    {% else %}
+      <div class="bynox-lh-bg bynox-lh-bg-placeholder"></div>
+    {% endif %}
+
+    <div class="bynox-lh-overlay"></div>
+
+    <div class="bynox-lh-content">
+
+      {% if section.settings.badge_text != blank %}
+        <div class="bynox-lh-badge">
+          {% if section.settings.badge_icon != blank %}
+            <span>{{ section.settings.badge_icon }}</span>
+          {% endif %}
+          {{ section.settings.badge_text }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="bynox-lh-heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.subtitle != blank %}
+        <p class="bynox-lh-subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+
+      {% if section.settings.cta_label != blank %}
+        <a href="{{ section.settings.cta_url }}" class="bynox-lh-btn">
+          {{ section.settings.cta_label }}
+        </a>
+      {% endif %}
+
+    </div>
+
+    {% if section.settings.thumb_image != blank %}
+      <a href="{{ section.settings.thumb_url }}" class="bynox-lh-thumb">
+        <img
+          src="{{ section.settings.thumb_image | image_url: width: 320 }}"
+          alt="{{ section.settings.thumb_label | escape }}"
+          width="320"
+          height="200"
+          loading="lazy"
+        >
+        {% if section.settings.thumb_label != blank %}
+          <span class="bynox-lh-thumb-label">{{ section.settings.thumb_label }}</span>
+        {% endif %}
+      </a>
+    {% endif %}
+
+    {% if section.settings.pause_btn %}
+      <button class="bynox-lh-pause" id="bynoxLhPause" aria-label="Pause video">⏸</button>
+    {% endif %}
+
+  </div>
+
+</section>
+
+<style>
+.bynox-lh {
+  font-family: var(--font-body--family, sans-serif) !important;
+}
+
+/* Announcement bar */
+.bynox-lh-announcement {
+  background: #1a1a1a !important;
+  text-align: center !important;
+  padding: 12px 20px !important;
+}
+.bynox-lh-ann-link {
+  color: #fff !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  letter-spacing: .02em !important;
+}
+.bynox-lh-ann-link span {
+  margin-left: 6px !important;
+}
+
+/* Countdown bar */
+.bynox-lh-countdown-bar {
+  background: #a33020 !important;
+  color: #fff !important;
+  text-align: center !important;
+  padding: 12px 20px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+}
+.bynox-lh-countdown-chip {
+  background: #fff !important;
+  color: #a33020 !important;
+  padding: 4px 16px !important;
+  border-radius: 6px !important;
+  font-weight: 800 !important;
+  font-size: 15px !important;
+}
+
+/* Hero */
+.bynox-lh-hero {
+  position: relative !important;
+  width: 100% !important;
+  min-height: 560px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: flex-end !important;
+}
+
+.bynox-lh-bg {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.bynox-lh-bg-placeholder {
+  background: #2a2a2a !important;
+}
+
+.bynox-lh-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.72) 0%,
+    rgba(0,0,0,.28) 50%,
+    rgba(0,0,0,.04) 100%
+  ) !important;
+}
+
+.bynox-lh-content {
+  position: relative !important;
+  z-index: 2 !important;
+  padding: 52px 60px !important;
+  max-width: 580px !important;
+}
+
+/* Badge */
+.bynox-lh-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 18px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255,255,255,.7) !important;
+  color: #fff !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  margin-bottom: 20px !important;
+  backdrop-filter: blur(4px) !important;
+  background: rgba(255,255,255,.12) !important;
+}
+
+.bynox-lh-heading {
+  font-size: clamp(34px, 4vw, 58px) !important;
+  font-weight: 800 !important;
+  color: #fff !important;
+  line-height: 1.08 !important;
+  margin: 0 0 16px !important;
+  letter-spacing: -.5px !important;
+}
+
+.bynox-lh-subtitle {
+  color: rgba(255,255,255,.85) !important;
+  font-size: 16px !important;
+  line-height: 1.65 !important;
+  margin: 0 0 28px !important;
+  max-width: 480px !important;
+}
+
+.bynox-lh-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 14px 28px !important;
+  border-radius: 999px !important;
+  background: #fff !important;
+  color: #1a1a1a !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  transition: background .2s ease, color .2s ease !important;
+}
+.bynox-lh-btn:hover {
+  background: #f0ede7 !important;
+}
+
+/* Thumbnail preview */
+.bynox-lh-thumb {
+  position: absolute !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 3 !important;
+  width: 160px !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,.4) !important;
+}
+.bynox-lh-thumb img {
+  width: 100% !important;
+  height: 100px !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+.bynox-lh-thumb-label {
+  display: block !important;
+  background: rgba(0,0,0,.7) !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 8px 10px !important;
+}
+
+/* Pause button */
+.bynox-lh-pause {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 3 !important;
+  background: rgba(255,255,255,.15) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  width: 40px !important;
+  height: 40px !important;
+  cursor: pointer !important;
+  color: #fff !important;
+  font-size: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+@media(max-width: 768px) {
+  .bynox-lh-hero { min-height: 420px !important; }
+  .bynox-lh-content { padding: 32px 24px !important; }
+  .bynox-lh-thumb { display: none !important; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX Light Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Announcement Bar"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "Shop The Father's Day Sale | Save up to 35% off"
+    },
+    {
+      "type": "url",
+      "id": "announcement_url",
+      "label": "Announcement Link"
+    },
+    {
+      "type": "header",
+      "content": "Countdown Bar"
+    },
+    {
+      "type": "text",
+      "id": "countdown_text",
+      "label": "Countdown Label",
+      "default": "Sale ends in:"
+    },
+    {
+      "type": "text",
+      "id": "countdown_days",
+      "label": "Countdown Value",
+      "default": "4 days",
+      "info": "e.g. 4 days · 12 hours"
+    },
+    {
+      "type": "header",
+      "content": "Hero Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "header",
+      "content": "Hero Content"
+    },
+    {
+      "type": "text",
+      "id": "badge_icon",
+      "label": "Badge Icon",
+      "default": "🔒"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Online Exclusive"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Meet the CryoTherm Palm"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Our new palm cooling device lowers core body temperature between sets, sprints and game breaks to help delay fatigue and keep you pushing harder for longer."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Thumbnail Preview (bottom-right)"
+    },
+    {
+      "type": "image_picker",
+      "id": "thumb_image",
+      "label": "Thumbnail Image"
+    },
+    {
+      "type": "text",
+      "id": "thumb_label",
+      "label": "Thumbnail Label",
+      "default": "The Father's Day Sale"
+    },
+    {
+      "type": "url",
+      "id": "thumb_url",
+      "label": "Thumbnail Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_btn",
+      "label": "Show Pause Button",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX Light Hero"
+    }
+  ]
+}
+{% endschema %}

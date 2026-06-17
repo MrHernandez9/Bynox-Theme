@@ -1,0 +1,202 @@
+<section class="bynox-cl">
+  <div class="bynox-cl-inner">
+
+    {% if section.settings.heading != blank %}
+      <h2 class="bynox-cl-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="bynox-cl-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'category' %}
+          <a href="{{ block.settings.url }}" class="bynox-cl-item" {{ block.shopify_attributes }}>
+
+            <div class="bynox-cl-thumb">
+              {% if block.settings.image != blank %}
+                <img
+                  src="{{ block.settings.image | image_url: width: 200 }}"
+                  alt="{{ block.settings.label | escape }}"
+                  width="200"
+                  height="200"
+                  loading="lazy"
+                >
+              {% else %}
+                <div class="bynox-cl-thumb-placeholder"></div>
+              {% endif %}
+            </div>
+
+            <span class="bynox-cl-label">{{ block.settings.label }}</span>
+
+            <span class="bynox-cl-arrow">→</span>
+
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+.bynox-cl {
+  background: {{ section.settings.bg_color }} !important;
+  padding: 60px 0 !important;
+  font-family: var(--font-body--family, sans-serif) !important;
+}
+
+.bynox-cl-inner {
+  max-width: 1320px !important;
+  margin: 0 auto !important;
+  padding: 0 40px !important;
+}
+
+.bynox-cl-heading {
+  font-size: clamp(22px, 2.5vw, 34px) !important;
+  font-weight: 800 !important;
+  color: #1a1a1a !important;
+  margin: 0 0 28px !important;
+}
+
+.bynox-cl-grid {
+  display: grid !important;
+  grid-template-columns: repeat({{ section.blocks.size | default: 3 }}, 1fr) !important;
+  gap: 12px !important;
+}
+
+.bynox-cl-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 18px 22px !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  border: 1px solid rgba(0,0,0,.07) !important;
+  text-decoration: none !important;
+  transition: box-shadow .22s ease, transform .22s ease, border-color .22s ease !important;
+}
+
+.bynox-cl-item:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,.09) !important;
+  transform: translateY(-2px) !important;
+  border-color: rgba(0,0,0,.14) !important;
+}
+
+.bynox-cl-thumb {
+  width: 56px !important;
+  height: 56px !important;
+  flex-shrink: 0 !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  background: #f0ede7 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.bynox-cl-thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+.bynox-cl-thumb-placeholder {
+  width: 100% !important;
+  height: 100% !important;
+  background: #e0dbd3 !important;
+  border-radius: 10px !important;
+}
+
+.bynox-cl-label {
+  flex: 1 !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #1a1a1a !important;
+}
+
+.bynox-cl-arrow {
+  font-size: 18px !important;
+  color: #6b6b6b !important;
+  transition: transform .2s ease !important;
+}
+
+.bynox-cl-item:hover .bynox-cl-arrow {
+  transform: translateX(4px) !important;
+}
+
+@media(max-width: 900px) {
+  .bynox-cl-grid { grid-template-columns: 1fr !important; }
+}
+
+@media(max-width: 640px) {
+  .bynox-cl { padding: 40px 0 !important; }
+  .bynox-cl-inner { padding: 0 20px !important; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "BYNOX Category Links",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#faf8f4"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Therapeutic solutions for every body"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Link",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category Image (product thumbnail)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Category Name",
+          "default": "Massage Guns"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BYNOX Category Links",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "label": "Heated Massage Guns"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "label": "Wireless Leg Compression"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "label": "Eye and Temple Massage"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
