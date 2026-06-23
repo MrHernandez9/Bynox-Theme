@@ -130,14 +130,33 @@ productForms.forEach((form) => {
 
       event.preventDefault();
 
+      const submitBtn = form.querySelector('[type="submit"]');
+      const originalLabel = submitBtn ? submitBtn.textContent : null;
+
+      if (submitBtn) {
+        submitBtn.textContent = 'Agregando...';
+        submitBtn.disabled = true;
+      }
+
       const formData = new FormData(form);
 
       try {
 
-        await fetch('/cart/add.js', {
+        const addResponse = await fetch('/cart/add.js', {
           method: 'POST',
           body: formData
         });
+
+        if (!addResponse.ok) {
+          const err = await addResponse.json().catch(() => ({}));
+          console.error('Cart add error:', err.description || addResponse.status);
+          if (submitBtn) {
+            submitBtn.textContent = err.description || 'Error al agregar';
+            submitBtn.disabled = false;
+            setTimeout(() => { submitBtn.textContent = originalLabel; }, 2500);
+          }
+          return;
+        }
 
         await updateCartDrawer();
 
@@ -146,6 +165,13 @@ productForms.forEach((form) => {
       } catch(error) {
 
         console.error(error);
+
+      } finally {
+
+        if (submitBtn && submitBtn.disabled) {
+          submitBtn.textContent = originalLabel;
+          submitBtn.disabled = false;
+        }
 
       }
 
